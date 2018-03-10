@@ -4,6 +4,7 @@
 
 \documentclass[11pt,a4paper,oneside,onecolumn]{IEEEtran}
 \usepackage{graphicx}
+\usepackage{xcolor}
 % Enter the project title and your project supervisor here
 \newcommand{\ProjectTitle}{Beehive Traffic}
 \newcommand{\ProjectSupervisor}{Sattler Torsten}
@@ -56,12 +57,25 @@ For the support of our project we found a paper which uses the tracking system '
 \section{Work packages and timeline}
 
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{p{7cm}ll}
 \hline
 Task & Group Member & Time period \\ \hline
-Literature research & Everyone & week 3 to 4 \\ \hline
-Get familiar with Python, OpenCV and Colmap & Everyone & week 3 to 5 \\ \hline
-Calibrate cameras &
+literature research, get familiar with Python, OpenCV and COLMAP & Everyone & 3 weeks\\ \hline
+Taking several video recordings (test installation, different camera positions, uniformization of background) & Jonathan & 1 week\\ \hline
+Frame to frame association and Background subtraction & Julie, Philipp & 2 weeks\\ \hline
+Prepare presentation & Everyone & 1 week\\ \hline
+\color{red}{Midterm presentation} & Everyone & \\ \hline
+Implement segmentation (ellipses for the bees) and tracking & Jasmin, Philipp & 3 weeks\\ \hline
+Determine trajectories using COLMAP & Jonathan & 2 weeks\\ \hline
+Determine logic to count incoming and outcoming bees & Julie & 1 week \\ \hline
+Reflect on further improvement, possible enhancement of method and/or measurement & Everyone & 2 weeks\\ \hline
+Prepare final presentation & Everyone & 1 week\\ \hline
+\color{red}{Final presentation} & Everyone & \\ \hline
+Write the final report & Everyone & 2 weeks\\ \hline
+\color{red}{Final written report} & Everyone & \\ \hline
+
+\end{tabular}
+\end{center}
 
 Detailed descriptions of work packages you planned, their outcomes, the responsible group member and estimated timeline. Specify the challenges that will be tackled and considered solutions with possible alternatives, citing related documents if applicable. Mention the platform (Android, PC etc.) and the language (C++ etc.) you plan to use.
 
