@@ -14,14 +14,14 @@
 % Including photographs are optional. Photos are there to help us to evaluate your group more effectively. If you wish not to include your photos, please comment the following line.
 \newcommand{\PutPhotos}{}
 % Please include a clear photo of each member. (use pdf or png files for Latex to embed them in the document well)
-\newcommand{\memberone}{Jonathan Burkhart}
-\newcommand{\memberonepicture}{pic2.png}
+\newcommand{\memberone}{Jonathan Burkhard}
+\newcommand{\memberonepicture}{john.jpg}
 \newcommand{\membertwo}{Jasmin Fischli}
-\newcommand{\membertwopicture}{pic1.png}
-\newcommand{\memberthree}{Philipp Göldlin}
-\newcommand{\memberthreepicture}{pic2.png}
+\newcommand{\membertwopicture}{Jasmin.jpg}
+\newcommand{\memberthree}{Philipp G{\"o}ldlin}
+\newcommand{\memberthreepicture}{pölöp.jpg}
 \newcommand{\memberfour}{Julie Veya}
-\newcommand{\memberfourpicture}{pic1.png}
+\newcommand{\memberfourpicture}{Julie.jpg}
 % \newcommand{\memberfive}{Member Name}
 % \newcommand{\memberfivepicture}{pic2.png}
 
@@ -45,11 +45,12 @@
 %%%% BEGIN WRITING THE DOCUMENT HERE %%%%
 
 \section{Description of the project}
-One problem that a beekeeper can encounter in spring, is the sudden swarming of his bees. They do so to find a new location for their colony.
+One problem a beekeeper can encounter during spring, is the sudden swarming of his bees. They do so to find a new location for their colony.
 
-In this project we want to count the number of bees that enter and leave the hive at any particular time, to be able to detect such a bee swarming. Using a GoPro camera we will take several short videos and apply background subtraction and segmentation with OpenCV to recognize the bees. To track the path of the bees in 3D we will use COLMAP.
+In this project we want to count the number of bees that enter and leave the hive at any particular time, to be able to detect such a bee swarming. Using a GoPro camera, we will take several short videos and apply background subtraction followed by segmentation using OpenCV to recognize the bees. To track the path of the bees in 3D, we will use OpenCV.
 
-For the support of our project we found a paper which uses the tracking system 'SwarmSigth' and one camera to count the bees.
+For the support of our project we found a paper \cite{paper}\relax which uses the tracking software 'SwarmSight' in combination with one camera for counting bees. 
+
 
 % A high level description of the project, mentioning the main goal, the input and planned output data. Typically 4-5 sentences, also citing immediately related literature \cite{paper}.
 % Je ne sais pas comment il faut citer le paper: https://www.ncbi.nlm.nih.gov/pubmed/29364251
@@ -57,41 +58,76 @@ For the support of our project we found a paper which uses the tracking system '
 \section{Work packages and timeline}
 
 \begin{center}
-\begin{tabular}{p{7cm}ll}
+\begin{tabular}{p{11cm}ll}
 \hline
-Task & Group Member & Time period \\ \hline
-literature research, get familiar with Python, OpenCV and COLMAP & Everyone & 3 weeks\\ \hline
-Taking several video recordings (test installation, different camera positions, uniformization of background) & Jonathan & 1 week\\ \hline
-Frame to frame association and Background subtraction & Julie, Philipp & 2 weeks\\ \hline
-Prepare presentation & Everyone & 1 week\\ \hline
-\color{red}{Midterm presentation} & Everyone & \\ \hline
-Implement segmentation (ellipses for the bees) and tracking & Jasmin, Philipp & 3 weeks\\ \hline
-Determine trajectories using COLMAP & Jonathan & 2 weeks\\ \hline
-Determine logic to count incoming and outcoming bees & Julie & 1 week \\ \hline
-Reflect on further improvement, possible enhancement of method and/or measurement & Everyone & 2 weeks\\ \hline
-Prepare final presentation & Everyone & 1 week\\ \hline
-\color{red}{Final presentation} & Everyone & \\ \hline
-Write the final report & Everyone & 2 weeks\\ \hline
-\color{red}{Final written report} & Everyone & \\ \hline
+\textbf{Task} & \textbf{Group Member} & \textbf{Time period} \\ \hline
+
+
+Literature research, get familiar with Python, OpenCV & Everyone & Weeks 3 to 5\\ \hline
+
+
+Taking several video recordings (test installation, different camera positions, uniformization of background) & Jonathan & Week 4\\ \hline
+
+
+Frame to frame association and background subtraction & Julie, Philipp & Weeks 5 to 6\\ \hline
+
+
+Prepare presentation & Everyone & Week 7\\ \hline
+
+
+\textbf{Midterm presentation} & Everyone & 09.04. \\ \hline
+
+
+Implement segmentation and ellipse fitting & Jasmin, Philipp & Weeks 8 to 10\\ \hline
+
+
+Determine trajectories using OpenCV & Jonathan & Weeks 10 to 11\\ \hline
+
+
+Determine a logic to count incoming and outcoming bees & Julie & Week 12 \\ \hline
+
+
+Reflect on further improvement, possible enhancement of method and/or measurement & Everyone & Weeks 12 to 13\\ \hline
+
+
+Prepare final presentation & Everyone & Week 14\\ \hline
+
+
+\textbf{Final presentation} & Everyone & 28.05. \\ \hline
+Write the final report & Everyone & Weeks 15 to 16\\ \hline
+
+
+\textbf{Final written report} & Everyone & 15.06.\\ \hline
 
 \end{tabular}
 \end{center}
 
-Detailed descriptions of work packages you planned, their outcomes, the responsible group member and estimated timeline. Specify the challenges that will be tackled and considered solutions with possible alternatives, citing related documents if applicable. Mention the platform (Android, PC etc.) and the language (C++ etc.) you plan to use.
+\break
+
+Some problems we will encounter during the project are listed below:
+\begin{itemize}
+\item First of all, the hive has a brownish color, which causes a small difference in color between the bees and the hive. To facilitate the background subtraction we will put a coloured paper on the hive to better recognize the bees.
+\item Another challenge will be to detect the rapid movement of the bees for which we need a frame rate high enough to map the trajectory of the bees through the consecutive pictures.
+\item Furthermore we will have overlapping bees. Solving this issue will be complicated using a single camera. But since we are interested only in the number of bees this does not falsify our result if we confuse two bees with each other. Additionally if we are able to track the bees' paths using OpenCV then we could be be able to distinguish the bees from one another.
+\item We might not be able to distinguish bees from other insects. But we assume that this implies only a negligible error.
+\end{itemize}
+
+
+%Detailed descriptions of work packages you planned, their outcomes, the responsible group member and estimated timeline. Specify the challenges that will be tackled and considered solutions with possible alternatives, citing related documents if applicable. Mention the platform (Android, PC etc.) and the language (C++ etc.) you plan to use.
 
 \section{Outcomes and Demonstration}
 
-In the of this project we want to be able to count the bees entering and leaving a hive and to track them using a single camera. We will show our result using a recorded video.
+At the end of this project we want to be able to count the bees entering and leaving the hive. Furthermore we want to track the bees using a single camera. At the end of the semester we will demonstrate the results with recorded videos, on which the bees' path is tracked.
 % Give detailed information on the expected outcome of your project and the experiments you plan to test your implementation. If applicable, describe the online or offline demo you plan to present at the end of the semester.
 
 
-\vspace{1cm}
-\textbf{Instructions:} 
+%\vspace{1cm}
+%\textbf{Instructions:} 
 
-\begin{itemize}
-\item The document should not exceed two pages including the references.
-\item Please name the document \textbf{3DVision\_Proposal\_Surname1\_Surname2.pdf} and upload it via the moodle.
-\end{itemize}
+%\begin{itemize}
+%\item The document should not exceed two pages %including the references.
+%\item Please name the document \textbf{3DVision%%\_Proposal\_Surname1\_Surname2.pdf} and upload it via %the moodle.
+%\end{itemize}
 
 
 
@@ -100,8 +136,13 @@ In the of this project we want to be able to count the bees entering and leaving
 \bibliography{refs}
 \bibliographystyle{plain}}}
 
-\end{document}
+\begin{thebibliography}{unsrt}
+  \bibitem{paper}
+    Justas Birgiolas \& Christopher M. Jernigan \& Brian H. Smith \& Sharon M. Crook \emph{SwarmSight: Measuring the temporal progression of animal
+group activity levels from natural-scene and laboratory videos} (Psychonomic Society, USA, 2016).
+\end{thebibliography}
 
+\end{document}
 
 
 
