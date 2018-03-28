@@ -1,6 +1,6 @@
 # 3D_Vision - Lecture spring 2018
 
-Bee Traffic sans Jassi mais avec Philipp
+Bee Traffic sans Jassi mais avec Philipp et aussi julie
 
 ETH Zurich - 3D Photography 2015
 http://www.cvg.ethz.ch/teaching/3dphoto/
