@@ -1,7 +1,11 @@
 # 3D_Vision - Lecture spring 2018
 
+<<<<<<< HEAD
+Bee Traffic sans Jassi mais avec Philipp et aussi julie
+=======
 Bee Traffic sans Jassi mais avec Philipp mais ça marche que avec add .
-C'est bizarre chez moi ça marche normalement. Test
+C'est bizarre chez moi ça marche normalement.
+>>>>>>> 59fb0b864d47f28bc9c63d1c4c46fd45513a113d
 
 ETH Zurich - 3D Photography 2015
 http://www.cvg.ethz.ch/teaching/3dphoto/
