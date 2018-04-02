@@ -3,7 +3,7 @@
 <<<<<<< HEAD
 Bee Traffic sans Jassi mais avec Philipp et aussi julie
 =======
-Bee Traffic sans Jassi mais avec Philipp mais ça marche que avec add .
+Bee Traffic sans Jassi mais avec Philipp mais ça marche que avec add . test
 C'est bizarre chez moi ça marche normalement.
 >>>>>>> 59fb0b864d47f28bc9c63d1c4c46fd45513a113d
 
