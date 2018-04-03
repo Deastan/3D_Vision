@@ -13,7 +13,7 @@ while(1):
     fgmask_median= cv2.medianBlur(fgmask, 9)
     ret, fgmask_threshold = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
 
-    #make it have 3 channels => same matrix dimensions
+    #make it have 3 channels => same matrix dimension
     fgmask = cv2.cvtColor(fgmask, cv2.COLOR_GRAY2BGR)
 
     #create thresholded image, median-filtered
