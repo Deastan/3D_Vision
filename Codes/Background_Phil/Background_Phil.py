@@ -9,14 +9,14 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 while(1):
     ret, original = cap.read()
+
+    #create bg-subtracted, thresholded and median-filtered image
     fgmask = fgbg.apply(original)
     fgmask_median= cv2.medianBlur(fgmask, 9)
     ret, fgmask_threshold = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
 
-    #make it have 3 channels => same matrix dimension
+    #make it have 3 channels => same matrix dimensions
     fgmask = cv2.cvtColor(fgmask, cv2.COLOR_GRAY2BGR)
-
-    #create thresholded image, median-filtered
     fgmask_median = cv2.cvtColor(fgmask_median, cv2.COLOR_GRAY2BGR)
     fgmask_threshold = cv2.cvtColor(fgmask_threshold, cv2.COLOR_GRAY2BGR)
 
