@@ -18,7 +18,7 @@ width = width2-width1
 
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 print(frame.shape)
-out = cv2.VideoWriter('output.avi',fourcc,20.0,(higth,width),True)
+out = cv2.VideoWriter('output.avi',fourcc,20.0,(width,higth),True)
 
 while(1):
     ret, frame = cap.read()
