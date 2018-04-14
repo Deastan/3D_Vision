@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 import glob
+import os
+import sys
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -13,8 +15,11 @@ objp[:,:2] = np.mgrid[0:7,0:6].T.reshape(-1,2)
 objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
-images = glob.glob('*.png')
+path = '/home/jasmin/3D_Vision/Videos/images_calib/Calibration - Easter'
+os.chdir(path)
+images = glob.glob('*.JPG')
 
+print(images)
 for fname in images:
     img = cv2.imread(fname)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
