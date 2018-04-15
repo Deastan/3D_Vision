@@ -20,13 +20,18 @@
 \headcommand {\beamer@subsectionpages {5}{5}}
 \headcommand {\slideentry {3}{0}{1}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\sectionentry {4}{What are our next step ?}{7}{What are our next step ?}{0}}
+\headcommand {\sectionentry {4}{Tracking some bees}{7}{Tracking some bees}{0}}
 \headcommand {\beamer@sectionpages {6}{6}}
 \headcommand {\beamer@subsectionpages {6}{6}}
 \headcommand {\slideentry {4}{0}{1}{7/7}{}{0}}
 \headcommand {\beamer@framepages {7}{7}}
-\headcommand {\beamer@partpages {1}{7}}
-\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\sectionentry {5}{What are our next step ?}{8}{What are our next step ?}{0}}
 \headcommand {\beamer@sectionpages {7}{7}}
-\headcommand {\beamer@documentpages {7}}
-\headcommand {\def \inserttotalframenumber {7}}
+\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\slideentry {5}{0}{1}{8/8}{}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@partpages {1}{8}}
+\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\beamer@sectionpages {8}{8}}
+\headcommand {\beamer@documentpages {8}}
+\headcommand {\def \inserttotalframenumber {8}}

@@ -6,6 +6,7 @@
 \usepackage[helvet]{sfmath}    % for the mathematical enviroments
 \usepackage{graphicx}
 \usepackage{multimedia}% for add a movie
+\usepackage{hyperref}
 \usepackage{media9} %for movie : new try
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -38,7 +39,7 @@
 %Camera support
 \section{Gopro support}
 \begin{frame}{Gopro support}
-Goal : to have every time the same view
+Goal : to have everytime the same view
 \begin{figure}
 \includegraphics[scale=0.25]{pictures/photoSupport}
 \includegraphics[scale=0.15]{pictures/sup}
@@ -48,24 +49,12 @@ Goal : to have every time the same view
 
 %slide with a short movie
 
-\begin{frame}{Example of short movie from this view}
-
-The following youtube video is adapted from media9 package manual.
+\begin{frame}{Example of the view with this support}
 
 \begin{figure}
-    \centering
-    \includemedia[
-    width=0.6\linewidth,height=0.3375\linewidth,
-    activate=pageopen,
-    flashvars={
-        modestbranding=1 % no YT logo in control bar
-        &autohide=1 % controlbar autohide
-        &showinfo=0 % no title and other info before start
-        &rel=0 % no related videos after end
-        }
-        ]{}{http://www.youtube.com/v/w3f-WyDqOUw}
+\includegraphics[scale=0.07]{pictures/views}
+\caption{View from the support}
 \end{figure}
-
 %\movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{GOPR1345.MP4}
 \end{frame}
 
@@ -76,12 +65,26 @@ The following youtube video is adapted from media9 package manual.
 
 \section{Background substraction}
 \begin{frame}{Background substraction}
+\begin{figure}
+\includegraphics[scale=0.23]{pictures/backg2}
+\caption{Original picture, background substraction, median mask, threshold mask} 
+\end{figure}
+\end{frame}
 
+\section{Tracking some bees}
+\begin{frame}{Where we are right now}
+
+\centering 
+\url{https://www.youtube.com/watch?v=ReSonvV2y0M&feature=youtu.be}
 \end{frame}
 
 \section{What are our next step ?}
 \begin{frame}{What are our next step ?}
-
+\begin{itemize}
+\item Continue to track the bees
+\item Determine logic to count incoming and outcoming bees
+\item Reflect on further improvement, possible enhancement of method
+\end{itemize}
 \end{frame}
 
 
