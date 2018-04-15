@@ -1,6 +1,6 @@
 \beamer@endinputifotherversion {3.36pt}
-\beamer@sectionintoc {1}{Gopro support}{3}{0}{1}
+\beamer@sectionintoc {1}{GoPro support}{3}{0}{1}
 \beamer@sectionintoc {2}{Calibration}{5}{0}{2}
-\beamer@sectionintoc {3}{Background substraction}{6}{0}{3}
+\beamer@sectionintoc {3}{Background subtraction}{6}{0}{3}
 \beamer@sectionintoc {4}{Tracking some bees}{7}{0}{4}
-\beamer@sectionintoc {5}{What are our next step ?}{8}{0}{5}
+\beamer@sectionintoc {5}{Which are our next steps?}{8}{0}{5}
