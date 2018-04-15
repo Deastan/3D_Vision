@@ -4,7 +4,9 @@
 \usepackage{lipsum, lmodern}
 \usepackage[scaled=.95]{helvet}% helvetica as the origin of arial
 \usepackage[helvet]{sfmath}    % for the mathematical enviroments
+\usepackage{graphicx}
 \usepackage{multimedia}% for add a movie
+\usepackage{media9} %for movie : new try
 \renewcommand{\familydefault}{\sfdefault}
 
 %% ETH beamer theme
@@ -48,7 +50,23 @@ Goal : to have every time the same view
 
 \begin{frame}{Example of short movie from this view}
 
-\movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{GOPR1345.MP4}
+The following youtube video is adapted from media9 package manual.
+
+\begin{figure}
+    \centering
+    \includemedia[
+    width=0.6\linewidth,height=0.3375\linewidth,
+    activate=pageopen,
+    flashvars={
+        modestbranding=1 % no YT logo in control bar
+        &autohide=1 % controlbar autohide
+        &showinfo=0 % no title and other info before start
+        &rel=0 % no related videos after end
+        }
+        ]{}{http://www.youtube.com/v/w3f-WyDqOUw}
+\end{figure}
+
+%\movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{GOPR1345.MP4}
 \end{frame}
 
 \section{Calibration}
