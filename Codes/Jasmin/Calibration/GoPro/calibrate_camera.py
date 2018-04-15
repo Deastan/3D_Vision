@@ -1,30 +1,35 @@
+# This code plays a distorted video with the distortion parameters calculated from another video with the size 1920x1080
+
 import numpy as np
 import cv2
 import glob
 
+# Load the calibration parameters
 ret = np.load('ret.npy')
 mtx = np.load('mtx.npy')
 dist = np.load('dist.npy')
 rvecs = np.load('rvecs.npy')
 tvecs = np.load('tvecs.npy')
 
-img = cv2.imread('frame29.png')
-h,  w = img.shape[:2]
-newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
+# Load the video
+cap = cv2.VideoCapture('GOPR1352120FPS.MP4') # Place the name of the video you want to play
 
-# undistort
-dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
+while(1):
+    ret, frame = cap.read()
 
-# cv2.imshow('dst',dst)
-# cv2.waitKey(5000) & 0xFF
-# cv2.imwrite('dist.png', dst)
+    frame = cv2.resize(frame,(1920,1080),interpolation=cv2.INTER_LINEAR) # Adapt the imagesize
+    h,  w = frame.shape[:2]
 
-# crop the image
-x,y,w,h = roi
-dst = dst[y:y+h, x:x+w]
-cv2.imwrite('calibresult.png',dst)
+    newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
+    dst = cv2.undistort(frame, mtx, dist, None, newcameramtx)
 
-cal = cv2.imread('calibresult.png')
-gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-cv2.imshow('cal',cal)
-cv2.waitKey(5000) & 0xFF
+    # show both videos the original called 'frame' and the undistorted called 'dist'
+    cv2.imshow('frame',frame)
+    cv2.imshow('dist',dst)
+    k = cv2.waitKey(1)&0xFF
+    if k ==27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
