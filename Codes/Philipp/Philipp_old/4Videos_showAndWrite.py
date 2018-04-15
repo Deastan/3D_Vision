@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture('/home/philipp/Desktop/Avril/GOPR1334.MP4')
+cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1402.MP4')
 fgbg = cv2.createBackgroundSubtractorMOG2()
 font = cv2.FONT_HERSHEY_SIMPLEX
 fourcc = cv2.VideoWriter_fourcc(*'XVID') # Define the codec and create VideoWriter object (fourcc)
@@ -59,13 +59,13 @@ while(1):
         out = cv2.VideoWriter('/home/philipp/Desktop/video_circle.avi',fourcc, 3.0,(allTogether.shape[1],allTogether.shape[0])) #define: format, fps, and frame-size (pixels)
         init=1
     out.write(allTogether)
-    if counter==8 or counter ==9:
-        cv2.imwrite('/home/philipp/Desktop/image_original'+str(counter)+'.jpg', original)
-        cv2.imwrite('/home/philipp/Desktop/image_fgmask'+str(counter)+'.jpg', fgmask)
-        cv2.imwrite('/home/philipp/Desktop/image_fgmask_median'+str(counter)+'.jpg', fgmask_median)
-        cv2.imwrite('/home/philipp/Desktop/image_fgmask_threshold'+str(counter)+'.jpg', fgmask_threshold)
-    if counter==9:
-        break
+    # if counter==8 or counter ==9:
+    #     cv2.imwrite('/home/philipp/Desktop/image_original'+str(counter)+'.jpg', original)
+    #     cv2.imwrite('/home/philipp/Desktop/image_fgmask'+str(counter)+'.jpg', fgmask)
+    #     cv2.imwrite('/home/philipp/Desktop/image_fgmask_median'+str(counter)+'.jpg', fgmask_median)
+    #     cv2.imwrite('/home/philipp/Desktop/image_fgmask_threshold'+str(counter)+'.jpg', fgmask_threshold)
+    # if counter==9:
+    #     break
 
 
 

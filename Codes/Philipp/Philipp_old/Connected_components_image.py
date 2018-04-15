@@ -4,7 +4,7 @@ import collections
 import time
 
 # img = cv2.imread('/home/philipp/Desktop/image.png', 0)
-img67 = cv2.imread('/home/philipp/Desktop/frame_67.jpg', 1)
+img67 = cv2.imread('/home/philipp/Desktop/white.jpg', 1)
 img=cv2.cvtColor(img67, cv2.COLOR_BGR2GRAY)
 
 cv2.imshow('1', img)

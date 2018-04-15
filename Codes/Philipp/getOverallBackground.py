@@ -4,7 +4,7 @@ import cv2
 
 cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1345.MP4')
 counter=0
-n=1000
+n=500
 
 while(cap.isOpened()):
     ret, frame = cap.read()
@@ -30,7 +30,3 @@ cv2.imshow('windowName', newAverage)
 cv2.imwrite('/home/philipp/Desktop/average.jpg', newAverage)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-
-
-# cv2.destroyAllWindows()
