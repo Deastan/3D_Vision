@@ -37,6 +37,7 @@ class Utilities:
         return ROI
 
     global histoMatrix
+    #The histomatrix contains 0)the considered frames, 1)the labels being shadows in this frame 2) the labels being bees in this frame
     histoMatrix= np.matrix([[[4],[5],[6],[24]],  [[2,3],[2,3],[1,4],[3],]  ,[[1],[1],[2,3],[1,2]]])
 
 
@@ -53,9 +54,16 @@ class Utilities:
                 shadowPixels.append(original[i,j])
         print("done")
         shadowPixels=np.matrix(shadowPixels)
-        shadowBlue = shadowPixels[:,2]
-        histo=plt.hist(shadowBlue, normed=True, bins=50)
-        print(histo)
+
+        shadowBlue = shadowPixels[:,0]
+        shadowGreen = shadowPixels[:,1]
+        shadowRed = shadowPixels[:,2]
+
+        histoBlue=plt.hist(shadowBlue, normed=True, bins=79)
+        histoGreen=plt.hist(shadowGreen, normed=True, bins=79)
+        histoRed=plt.hist(shadowRed, normed=True, bins=79)
+
+        print(histoBlue)
         plt.show()
 
 
