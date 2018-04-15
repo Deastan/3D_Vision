@@ -4,7 +4,9 @@
 \usepackage{lipsum, lmodern}
 \usepackage[scaled=.95]{helvet}% helvetica as the origin of arial
 \usepackage[helvet]{sfmath}    % for the mathematical enviroments
+\usepackage{graphicx}
 \usepackage{multimedia}% for add a movie
+\usepackage{media9} %for movie : new try
 \renewcommand{\familydefault}{\sfdefault}
 
 %% ETH beamer theme
@@ -34,24 +36,53 @@
 \end{frame}
 
 %Camera support
-\section{Introduction}
-\subsection{One subsection}
+\section{Gopro support}
 \begin{frame}{Gopro support}
-
+Goal : to have every time the same view
 \begin{figure}
 \includegraphics[scale=0.25]{pictures/photoSupport}
+\includegraphics[scale=0.15]{pictures/sup}
 \caption{Support of the Gopro in our hive}
 \end{figure}
-
 \end{frame}
 
 %slide with a short movie
 
 \begin{frame}{Example of short movie from this view}
 
-\movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{GOPR1345.MP4}
+The following youtube video is adapted from media9 package manual.
+
+\begin{figure}
+    \centering
+    \includemedia[
+    width=0.6\linewidth,height=0.3375\linewidth,
+    activate=pageopen,
+    flashvars={
+        modestbranding=1 % no YT logo in control bar
+        &autohide=1 % controlbar autohide
+        &showinfo=0 % no title and other info before start
+        &rel=0 % no related videos after end
+        }
+        ]{}{http://www.youtube.com/v/w3f-WyDqOUw}
+\end{figure}
+
+%\movie[label=cells,width=4cm,height=3cm,poster,showcontrols,duration=5s]{}{GOPR1345.MP4}
 \end{frame}
 
+\section{Calibration}
+\begin{frame}{Calibration}
+
+\end{frame}
+
+\section{Background substraction}
+\begin{frame}{Background substraction}
+
+\end{frame}
+
+\section{What are our next step ?}
+\begin{frame}{What are our next step ?}
+
+\end{frame}
 
 
 \end{document}
