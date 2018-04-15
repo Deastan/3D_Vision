@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import time
 
-cap = cv2.VideoCapture('/home/philipp/Desktop/pictures_and_videos/Avril/GOPR1329.MP4')
+cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1402.MP4')
 fourcc = cv2.VideoWriter_fourcc(*'XVID') # Define the codec and create VideoWriter object (fourcc)
 init=0
 fgbg = cv2.createBackgroundSubtractorMOG2()
@@ -19,7 +19,7 @@ while(1):
     fgmask= cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
 
-    kernel = np.ones((40,40),np.uint8)
+    kernel = np.ones((35,35),np.uint8)
     # erosion = cv2.erode(fgmask,kernel,iterations = 1)
     fgmask = cv2.dilate(fgmask,kernel,iterations = 1)
 
