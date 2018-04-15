@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import time
 
-cap = cv2.VideoCapture('/home/philipp/Desktop/pictures_and_videos/Avril/GOPR1329.MP4')
+cap = cv2.VideoCapture('/home/jonathan/Desktop/Videos/GOPR1353FPS60.MP4')
 fourcc = cv2.VideoWriter_fourcc(*'XVID') # Define the codec and create VideoWriter object (fourcc)
 init=0
 fgbg = cv2.createBackgroundSubtractorMOG2()

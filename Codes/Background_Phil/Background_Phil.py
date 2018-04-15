@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1292.MP4')
+cap = cv2.VideoCapture('/home/jonathan/Desktop/Videos/GOPR1353FPS60.MP4')
 fgbg = cv2.createBackgroundSubtractorMOG2()
 font = cv2.FONT_HERSHEY_SIMPLEX
 
