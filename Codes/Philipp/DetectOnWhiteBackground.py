@@ -60,11 +60,11 @@ while (1):
     counter += 1
     print("\r frame" + str(counter), end="")
 
-
-    # time.sleep(1)
-    if counter==4:
-        Utilities.getHistogram(original)
-        break
+    #
+    # # time.sleep(1)
+    # if counter==4:
+    #     Utilities.getHistogram(original)
+    #     break
 
 
     k = cv2.waitKey(1) & 0xff  # modify the frame-speed

@@ -21,13 +21,12 @@ class Utilities:
 
         fgmask = cv2.cvtColor(fgmask, cv2.COLOR_GRAY2BGR)
 
-        # j = 0
-        # for i in range(1, num_labels):  # don't do 0, cause it's just the background
-        #     if stats[i, 4] > 2500:  # threshold to filter out small patches
-        #         j += 1
-                # cv2.putText(original,str(j),(int(centroids[i,0]),int(centroids[i,1])), font, 1,(0,255,0),2,cv2.LINE_AA)
-                # cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
-                # cv2.putText(original, str(j), (int(centroids[i, 0]), int(centroids[i, 1])), font, 1, (0, 255, 0), 2, cv2.LINE_AA)
+        j = 0
+        for i in range(1, num_labels):  # don't do 0, cause it's just the background
+            if stats[i, 4] > 2500:  # threshold to filter out small patches
+                j += 1
+                cv2.putText(original,str(j),(int(centroids[i,0]),int(centroids[i,1])), font, 1,(0,255,0),2,cv2.LINE_AA)
+                cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
 
 
 
