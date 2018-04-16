@@ -3,5 +3,5 @@
 \beamer@sectionintoc {2}{Calibration}{5}{0}{2}
 \beamer@sectionintoc {3}{Background subtraction}{6}{0}{3}
 \beamer@sectionintoc {4}{Bee recognition}{7}{0}{4}
-\beamer@sectionintoc {5}{Timetable}{8}{0}{5}
-\beamer@sectionintoc {6}{Which are our next steps?}{9}{0}{6}
+\beamer@sectionintoc {5}{Which are our next steps?}{8}{0}{5}
+\beamer@sectionintoc {6}{Timetable}{9}{0}{6}
