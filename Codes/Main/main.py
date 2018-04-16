@@ -4,23 +4,53 @@ import numpy as np
 import cv2
 import time
 
+# ************************************************************
+# Define the goal of the program, paths of the video
+# ************************************************************
 
-cap = cv2.VideoCapture('/home/jonathan/Desktop/Videos/GOPR1353FPS60.MP4')
+# Do you want to calculate the distorsion of the camera ? true = yes and false = no
+calculateDistorsion = True
+calculateDistorsionPath =  '/home/jonathan/git/3D_Vision/JohnVideos/calibration_easter_hive'
+# Do you want to calibrate the movie ? true = yes and false = no
+calibrateVideo = True
+# Define the path of the video that you want to use !
+videoPath =  '/home/jonathan/Desktop/Videos/GOPR1353FPS60.MP4'
+
+
+
+# ************************************************************
+# Codes
+# ************************************************************
+
+# Calculate distortion
+if calculateDistorsion == True:
+    print("The measure of the distortion is set!")
+    Utilities.calculateDistorsion(path = calculateDistorsionPath)
+else:
+    print("The measure of the distortion is not set!")
+
+# Calculate distortion
+if calculateDistorsion == True:
+    print("The calibration of the video is set!")
+    Utilities.calibrateVideo(path = videoPath)
+else:
+    print("The calibration of the video is not set!")
+
+
+
+# Code from Philipp
+
+cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 init = 0
 fgbg = cv2.createBackgroundSubtractorMOG2()
 counter = 0
 beesTable1 = [] # table which content the bees
 
-
-
-
 while (1):
 
 
     ret, original = cap.read()
-
-
 
     # if init == 0:
     #     out = cv2.VideoWriter('/home/philipp/Desktop/video_circle.avi', fourcc, 10, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
