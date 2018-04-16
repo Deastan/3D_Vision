@@ -1,4 +1,9 @@
-/Videos
 /JohnVideos
+
+*.MP4
+*.PNG
+*.JPG
+
 *.toc
 *.nav
+*.avi
