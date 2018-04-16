@@ -2,5 +2,6 @@
 \beamer@sectionintoc {1}{GoPro support}{3}{0}{1}
 \beamer@sectionintoc {2}{Calibration}{5}{0}{2}
 \beamer@sectionintoc {3}{Background subtraction}{6}{0}{3}
-\beamer@sectionintoc {4}{Tracking some bees}{7}{0}{4}
+\beamer@sectionintoc {4}{Bee recognition}{7}{0}{4}
 \beamer@sectionintoc {5}{Which are our next steps?}{8}{0}{5}
+\beamer@sectionintoc {6}{Timetable}{9}{0}{6}
