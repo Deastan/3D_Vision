@@ -9,7 +9,7 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWri
 init = 0
 fgbg = cv2.createBackgroundSubtractorMOG2()
 counter = 0
-
+beesTable = []
 
 
 

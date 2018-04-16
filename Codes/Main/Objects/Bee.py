@@ -1,8 +1,7 @@
 # Object Bee
 # a Bee has an id, a position (x, y), a speed (x, y) and an history of the all last positions (x, y)
 class Bee(object):
-    
-# declaration and initalisation of the variables
+    # declaration and initalisation of the variables
     id = 0
     positionX = 0 # current poistion x
     positionY = 0 # current poistion y
