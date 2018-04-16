@@ -9,6 +9,9 @@ import sys
 class Utilities:
 
 
+# ************************************************************
+# Function for tracking
+# ************************************************************
 
     @staticmethod
     def connectedComponents(fgmask, original, connectivity=4, beesTable=[]):
@@ -71,6 +74,10 @@ class Utilities:
         print(histoBlue)
         plt.show()
         
+# ************************************************************
+# Function which calculate the different componants for the distorsion of the camera
+# ************************************************************
+
     @staticmethod
     def calculateDistorsion(path):
         # termination criteria
@@ -119,10 +126,14 @@ class Utilities:
         np.save('rvecs',rvecs)
         np.save('tvecs',tvecs)
 
+# ************************************************************
+# Calibrate the video from the calculus from the distorsion function
+# ************************************************************
 
-     # This code plays a distorted video with the distortion parameters calculated from another video with the size 1920x1080
     @staticmethod
     def calibrateVideo(path):
+    # This code plays a distorted video with the distortion parameters calculated 
+    # from another video with the size 1920x1080
         
         
         # Load the calibration parameters
@@ -134,8 +145,11 @@ class Utilities:
         
         # Load the video
         cap = cv2.VideoCapture(path) # Place the name of the video you want to play
+        # Define the codec and create VideoWriter object
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter('output_05.avi',fourcc, 20.0, (1920,1080))
         
-        while(1):
+        while(cap.isOpened()):
             ret, frame = cap.read()
         
             frame = cv2.resize(frame,(1920,1080),interpolation=cv2.INTER_LINEAR) # Adapt the imagesize
@@ -145,11 +159,135 @@ class Utilities:
             dst = cv2.undistort(frame, mtx, dist, None, newcameramtx)
         
             # show both videos the original called 'frame' and the undistorted called 'dist'
-            cv2.imshow('frame',frame)
-            cv2.imshow('dist',dst)
+            #cv2.imshow('frame',frame)
+            #cv2.imshow('dist',dst)
+            
+            # saved videos
+            if ret==True:
+                frame = cv2.flip(dst,0)
+        
+                # write the flipped frame
+                out.write(frame)
+        
+                #cv2.imshow('frame',frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            else:
+                break
+            
+            # other stuff
             k = cv2.waitKey(1)&0xFF
             if k ==27:
                 break
         
+        #print("The video is recording !")
+        #Utilities.saveVideo("output_01")
+        #print("The riccord is finished !")
+        
         cap.release()
         cv2.destroyAllWindows()
+
+# ************************************************************
+# Save the video
+# ************************************************************
+       
+    @staticmethod
+    def saveVideo(name):      
+        cap = cv2.VideoCapture(0)
+        
+        # Define the codec and create VideoWriter object
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter(name + '.avi',fourcc, 20.0, (1920,1080))
+        
+        while(cap.isOpened()):
+            ret, frame = cap.read()
+            if ret==True:
+                frame = cv2.flip(frame,0)
+        
+                # write the flipped frame
+                out.write(frame)
+        
+                cv2.imshow('frame',frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            else:
+                break
+            
+        # Release everything if job is finished
+        cap.release()
+        out.release()
+        cv2.destroyAllWindows()
+
+
+# ************************************************************
+# Tracking
+# ************************************************************
+ 
+        # Code from Philipp
+    @staticmethod
+    def trackingPhilipp(path):      
+        cap = cv2.VideoCapture(path)
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
+        init = 0
+        fgbg = cv2.createBackgroundSubtractorMOG2()
+        counter = 0
+        beesTable1 = [] # table which content the bees
+        
+        while (1):
+        
+        
+            ret, original = cap.read()
+        
+            # if init == 0:
+            #     out = cv2.VideoWriter('/home/philipp/Desktop/video_circle.avi', fourcc, 10, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
+            #     init = 1
+            # out.write(original)
+        
+        
+            original = Utilities.defineROI(100,1700,500,750,original)
+        
+            # create bg-subtracted, thresholded and median-filtered image
+            fgmask = fgbg.apply(original)
+            fgmask = cv2.medianBlur(fgmask, 9)
+            ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
+            kernel = np.ones((35, 35), np.uint8)
+            # erosion = cv2.erode(fgmask,kernel,iterations = 1)
+            # fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+        
+        
+        
+            Utilities.connectedComponents(original=original,fgmask=fgmask, connectivity=8, beesTable=beesTable1)
+        
+            cv2.putText(original, "frame:" +str(counter+1),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.namedWindow('frame_median', cv2.WINDOW_NORMAL)
+            cv2.resizeWindow('frame_median', 1200, 800)
+            cv2.imshow('frame_median', original)
+        
+        
+        
+            # labels=labels*50000
+            # cv2.imshow('frame_median', labels)
+            # if counter==2:
+            #     cv2.imwrite('/home/philipp/Desktop/white.jpg',original)
+            #     break
+        
+        
+        #*************************************
+        # There is an error in these 2 next line
+        #*************************************
+            #counter += 1
+            #print("\r frame" + str(counter), end="")
+        
+            #
+            # # time.sleep(1)
+            # if counter==4:
+            #     Utilities.getHistogram(original)
+            #     break
+        
+        
+            k = cv2.waitKey(1) & 0xff  # modify the frame-speed
+            if k == 27:
+                break
+        cap.release()
+        cv2.destroyAllWindows()
+        
