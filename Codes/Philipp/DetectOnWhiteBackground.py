@@ -11,21 +11,27 @@ fgbg = cv2.createBackgroundSubtractorMOG2()
 counter = 0
 beesTable = []
 global blueArray
+blueArray_static=[0 for x in range(255)]
+greenArray_static=[0 for x in range(255)]
+redArray_static=[0 for x in range(255)]
+
 blueArray=[0 for x in range(255)]
 greenArray=[0 for x in range(255)]
 redArray=[0 for x in range(255)]
+
+blueArray_static, greenArray_static, redArray_static = Utilities.defineStaticArrays(blueArray_static, greenArray_static, redArray_static)
 
 
 def createHistoArray(frame, label):
     global blueArray, greenArray, redArray
     if counter==frame:
         cv2.destroyAllWindows()
-        Utilities.showCaughtPatch(realoriginal, labels, label)
-        cv2.imshow('windowName', realoriginal)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # Utilities.showCaughtPatch(realoriginal, labels, label)
+        # cv2.imshow('windowName', realoriginal)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
         blueArray, greenArray, redArray = Utilities.getHistogram(realoriginal, label, blueArray, greenArray, redArray, frame=counter)
-        time.sleep(1)
+        # time.sleep(1)
 
 
 
@@ -77,12 +83,23 @@ while (1):
     counter += 1
     print("\r frame" + str(counter), end="")
 
-    createHistoArray(4,5)
+    ###I'll have to make all the arrays again, cause I might not have taken all the arrays, as the one from frame 4 is out-commented
+
+    # createHistoArray(22,2)
+    # if counter==22:
+    #     print(np.dot(blueArray, blueArray_static))
+    #     break
     # createHistoArray(4,8, realoriginal)
     createHistoArray(6,1)
-    createHistoArray(8,10)
-    createHistoArray(16,19)
+    createHistoArray(8,1)
+    createHistoArray(16,1)
     createHistoArray(22,2)
+    if counter ==22:
+        time.sleep(1)
+        print("blue:\n",blueArray/5)
+        print("green:\n", greenArray/5)
+        print("red:\n", redArray/5)
+        break
 
 
 
