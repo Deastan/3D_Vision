@@ -10,6 +10,22 @@ init = 0
 fgbg = cv2.createBackgroundSubtractorMOG2()
 counter = 0
 beesTable = []
+global blueArray
+blueArray=[0 for x in range(255)]
+greenArray=[0 for x in range(255)]
+redArray=[0 for x in range(255)]
+
+
+def createHistoArray(frame, label):
+    global blueArray, greenArray, redArray
+    if counter==frame:
+        cv2.destroyAllWindows()
+        Utilities.showCaughtPatch(realoriginal, labels, label)
+        cv2.imshow('windowName', realoriginal)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        blueArray, greenArray, redArray = Utilities.getHistogram(realoriginal, label, blueArray, greenArray, redArray, frame=counter)
+        time.sleep(1)
 
 
 
@@ -28,6 +44,7 @@ while (1):
 
 
     original = Utilities.defineROI(100,1700,500,750,original)
+    realoriginal=np.array(original)
 
     # create bg-subtracted, thresholded and median-filtered image
     fgmask = fgbg.apply(original)
@@ -39,7 +56,7 @@ while (1):
 
 
 
-    Utilities.connectedComponents(original=original,fgmask=fgmask, connectivity=8)
+    labels=Utilities.connectedComponents(original=original,fgmask=fgmask, connectivity=8)
 
 
     cv2.putText(original, "frame:" +str(counter+1),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
@@ -60,11 +77,19 @@ while (1):
     counter += 1
     print("\r frame" + str(counter), end="")
 
-    #
-    # # time.sleep(1)
-    # if counter==4:
-    #     Utilities.getHistogram(original)
-    #     break
+    createHistoArray(4,5)
+    # createHistoArray(4,8, realoriginal)
+    createHistoArray(6,1)
+    createHistoArray(8,10)
+    createHistoArray(16,19)
+    createHistoArray(22,2)
+
+
+
+
+    # time.sleep(7)
+
+
 
 
     k = cv2.waitKey(1) & 0xff  # modify the frame-speed

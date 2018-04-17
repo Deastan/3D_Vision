@@ -25,8 +25,12 @@ class Utilities:
         for i in range(1, num_labels):  # don't do 0, cause it's just the background
             if stats[i, 4] > 2500:  # threshold to filter out small patches
                 j += 1
-                cv2.putText(original,str(j),(int(centroids[i,0]),int(centroids[i,1])), font, 1,(0,255,0),2,cv2.LINE_AA)
+                cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), font, 1,(0,255,0),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!
                 cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
+
+        return labels
+
+
 
 
 
@@ -35,34 +39,45 @@ class Utilities:
         ROI=img[yMin: yMax, xMin:xMax]
         return ROI
 
-    global histoMatrix
-    #The histomatrix contains 0)the considered frames, 1)the labels being shadows in this frame 2) the labels being bees in this frame
-    histoMatrix= np.matrix([[[4],[5],[6],[24]],  [[2,3],[2,3],[1,4],[3],]  ,[[1],[1],[2,3],[1,2]]])
-
 
 
 
     @staticmethod
-    def getHistogram(original):
-        global histoMatrix
+    def getHistogram(realoriginal, label, blueArray, greenArray, redArray,frame):
         shadowPixels = []
 
         #get shadows
         for i, j in np.ndindex(labels.shape):
-            if labels[i,j]==histoMatrix[1,0][0]:
-                shadowPixels.append(original[i,j])
-        print("done")
+            if labels[i,j]==label:
+                shadowPixels.append(realoriginal[i,j])
         shadowPixels=np.matrix(shadowPixels)
 
         shadowBlue = shadowPixels[:,0]
         shadowGreen = shadowPixels[:,1]
         shadowRed = shadowPixels[:,2]
 
-        histoBlue=plt.hist(shadowBlue, normed=True, bins=79)
-        histoGreen=plt.hist(shadowGreen, normed=True, bins=79)
-        histoRed=plt.hist(shadowRed, normed=True, bins=79)
+        fig =plt.hist(shadowBlue,range=(0,255), normed=True, bins=255)
 
-        print(histoBlue)
-        plt.show()
+        # print(fig[0])
+        # plt.show()
+        blueArray+=fig[0]
+        # plt.savefig('/home/philipp/Desktop/Histograms_shadows/shadwo_frame_'+str(frame)+'_label'+str(label)+'_blue')
+        plt.hist(shadowGreen,range=(0,255), normed=True, bins=255)
+        greenArray+=fig[0]
+        # plt.show()
+        # plt.savefig('/home/philipp/Desktop/Histograms_shadows/shadwo_frame_'+str(frame)+'_label'+str(label)+'_green')
+        plt.hist(shadowRed,range=(0,255), normed=True, bins=255)
+        redArray+=fig[0]
+        # plt.show()
+        plt.savefig('/home/philipp/Desktop/Histograms_bees/bee_frame'+str(frame)+'_label'+str(label)+'_red_or_ALL')
+        return (blueArray, greenArray, redArray)
 
 
+
+
+
+    @staticmethod
+    def showCaughtPatch(realoriginal, labels, labelNumber):
+        for i, j in np.ndindex(labels.shape):
+            if labels[i,j]!= labelNumber:
+                realoriginal[i,j]=(0,0,0)
