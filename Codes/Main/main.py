@@ -13,7 +13,7 @@ import os
 calculateDistorsion = False
 
 # Do you want to calibrate the movie ? True = yes and False = no
-calibrateVideo = True
+calibrateVideo = False
 
 # Define the path of the video that you want to use ! For example: GOPR1355FPS60.MP4
 videoName = 'GOPR1345.MP4'
