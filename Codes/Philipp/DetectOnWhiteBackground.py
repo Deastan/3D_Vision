@@ -32,7 +32,7 @@ while (1):
     frameNumber +=1
 
     ret, original = cap.read()
-    original = Utilities.defineROI(100,1700,500,750,original)
+    # original = Utilities.defineROI(100,1700,500,750,original)
     realOriginal=np.array(original)
     fgmask = fgbg.apply(original)
     fgmask = cv2.medianBlur(fgmask, 9)
@@ -52,11 +52,11 @@ while (1):
 
 
     # everything concerning showing the window
-    # if arraySearch==False:
-    #     cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-    #     cv2.namedWindow('frame_median', cv2.WINDOW_NORMAL)
-    #     cv2.resizeWindow('frame_median', 1200, 800)
-    #     cv2.imshow('frame_median', original)
+    if arraySearch==False:
+        cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+        cv2.namedWindow('frame_median', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('frame_median', 1200, 800)
+        cv2.imshow('frame_median', original)
 
 
 
