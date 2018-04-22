@@ -266,7 +266,7 @@ class Utilities:
             # fgmask = cv2.dilate(fgmask, kernel, iterations=1)
 
 
-            if frameNumber!=1:#we don't do the first frame cause
+            if frameNumber!=1:#we don't do the first frame cause.
                 Utilities.connectedComponents(fgmask, original, beesTable=beesTable1)
 
 
