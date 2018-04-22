@@ -16,11 +16,11 @@ calculateDistorsion = False
 calibrateVideo = False
 
 # Define the path of the video that you want to use ! For example: GOPR1355FPS60.MP4
-videoName = 'GOPR1345.MP4'
+videoName = 'GOPR1402.MP4'
 
 # videoPath =  '/home/jonathan/Desktop/Videos/'
 
-# Do you want to track the bees ? It's funy. Do it !
+# Do you want to track the bees ? It's funny. Do it !
 tracking = True
 
 # ************************************************************
@@ -51,6 +51,6 @@ else:
 # Traking bee
 if tracking == True:
     print("Part of Philipp is set")
-    Utilities.trackingPhilipp(path = os.path.join(currentPath,videoPath))
+    Utilities.trackingPhilipp(path = os.path.join(currentPath,videoPath), videoWrite=True) #set videoWrite on 'True' if you want to save the displayed video
 else:
     print("Part of Philipp is not set!")

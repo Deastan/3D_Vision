@@ -10,13 +10,13 @@ cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1402.MP4')
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
-arraySearch = False
+arraySearch = True
 ######################################################################################################
 
 
-histoBlue_current=[0 for x in range(255)]
-histoGreen_current=[0 for x in range(255)]
-histoRed_current=[0 for x in range(255)]
+histoBlue_current=[0 for x in range(256)]
+histoGreen_current=[0 for x in range(256)]
+histoRed_current=[0 for x in range(256)]
 
 
 def createHistoArray(frameTolookAt, labelNumber):
@@ -32,6 +32,9 @@ while (1):
     frameNumber +=1
 
     ret, original = cap.read()
+    if ret==False:
+        print('File not found')
+        break
     # original = Utilities.defineROI(100,1700,500,750,original)
     realOriginal=np.array(original)
     fgmask = fgbg.apply(original)
@@ -54,15 +57,14 @@ while (1):
     # everything concerning showing the window
     if arraySearch==False:
         cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-        cv2.namedWindow('frame_median', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('frame_median', 1200, 800)
-        cv2.imshow('frame_median', original)
+        cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Bee recognition', 1200, 800)
+        cv2.imshow('Bee recognition', original)
 
 
 
     if frameNumber == 1:
         out = cv2.VideoWriter('/home/philipp/Desktop/ellipses.avi', fourcc, 15, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
-
     out.write(original)
     print("\r frame" + str(frameNumber), end="")
     # time.sleep(8)
