@@ -54,7 +54,7 @@ Other issiue is the edge fattening. To measure it they :
 
 \begin{figure}
 \includegraphics[scale=0.15]{pictures/fig6}
-\caption{???}
+\caption{Example of pointcloud produced with our algorithm. Notice the absence of quantization and flying pixels}
 \end{figure}
 \end{frame}
 
@@ -65,20 +65,34 @@ Other issiue is the edge fattening. To measure it they :
 \item Collect 1000 images with the Kinnect
 \end{itemize}
 \begin{figure}
-\includegraphics[scale=0.1]{pictures/fig7}
+\includegraphics[scale=0.15]{pictures/fig7}
 \caption{Census use 121 bits, LSH and UltraStereo use only 32 bits}
 \end{figure}
 \end{frame}
 
 \subsection{Interference and Generalization}
-\begin{frame}{Interferenc and Generalization}
+\begin{frame}{Interference and Generalization}
+\begin{itemize}
+\item interference caused by multiple sensors
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interference and Generalization}
 \begin{figure}
-\includegraphics[scale=0.08]{pictures/fig8}
-\caption{}
+\includegraphics[scale=0.1]{pictures/fig8}
+\caption{Examples of depth-maps produced with UltraStereo and state of the art competitors. Notice how the method in shows high invalidation in regions where the texture changes, the method is offline and still it fails delivering complete depth-maps especially in thin structures like the the plant.}
 \end{figure}
 \end{frame}
 
 \section{Conclusion}
 \begin{frame}{Conclusion}
 Best algorithms ever made !
+From the paper :
+\begin{itemize}
+\item breakthrough in the field of active stereo depth estimation 
+\item does not depend of the e windows size nor the size of the disparity space
+\item use machine learning algorithms
+\item run on GPU
+\item does not suffer from pe camera calibrations nor interference problems
+\end{itemize}
 \end{frame}
