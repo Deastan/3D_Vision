@@ -3,32 +3,31 @@
 % Philipp's part
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{}
-\subsection{State of the art method, Time of flight:}
-\begin{frame}{State of the art method, Time of flight:}
+\section{State of the art method}
+\begin{frame}{State of the art method, Time of flight}
 
-Using (varying) active illumination and reconstructing a scene from multiple images\\
+Using (varying) active illumination and reconstructing a scene from multiple images
+\begin{figure}
+\includegraphics[scale=0.15]{pictures/polop2}
+\includegraphics[scale=0.2]{pictures/polop1}
+\end{figure}
 Shortcomings:
 \begin{itemize}
 \item Low mapping rate (~30Hz)
 \item Motion artifacts
 \item Multipath-interference
 \end{itemize}
-
 \end{frame}
 
-\begin{frame}{Examples}
-\begin{figure}
-\includegraphics[scale=0.9]{pictures/polop}
-\caption{Examples}
-\end{figure}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{State of the art method, Structured Light:}
-\begin{frame}{State of the art method, Structured Light:}
+\begin{frame}{State of the art method, Structured Light}
 
-Spatial patterns projected on the scene\\
+Spatial patterns projected on the scene
+\begin{figure}
+\includegraphics[scale=0.1]{pictures/polop4}
+\includegraphics[scale=0.1]{pictures/polop3}
+\end{figure}
 Shortcomings:
 \begin{itemize}
 \item Robustness issues
@@ -36,23 +35,18 @@ Shortcomings:
 \item Limited depth-range
 \item Overlapping sensors cause interference
 \end{itemize}
-
 \end{frame}
 
-\begin{frame}{Examples}
-\begin{figure}
-\includegraphics[scale=0.9]{pictures/polop}
-\caption{Examples}
-\end{figure}
-\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Solution to a lot of these issues: Active Stereo:}
-\begin{frame}{Solution to a lot of these issues: Active Stereo:}
+\begin{frame}{Solution to a lot of these issues: Active Stereo}
 
 Using 2 calibrated cameras and 1 pattern-projecting light source
-
+\begin{figure}
+\includegraphics[scale=0.1]{pictures/polop5}
+\end{figure}
 \begin{itemize}
 \item Mitigates multipath reflections
 \item Improves robustness
@@ -62,9 +56,3 @@ Using 2 calibrated cameras and 1 pattern-projecting light source
 
 \end{frame}
 
-\begin{frame}{Examples}
-\begin{figure}
-\includegraphics[scale=0.9]{pictures/polop}
-\caption{Examples}
-\end{figure}
-\end{frame}
