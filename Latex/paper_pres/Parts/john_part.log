@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.10)  24 APR 2018 20:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.10)  27 APR 2018 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -139,7 +139,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 6--10
 
 Missing character: There is no O in font nullfont!
 Missing character: There is no c in font nullfont!
-Missing character: There is no u in font nullfont!
+Missing character: There is no c in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
@@ -302,7 +302,7 @@ or  <return>  to continue without it.
 
 ! Undefined control sequence.
 l.23 \includegraphics
-                     [scale=0.06]{pictures/fig3}
+                     [scale=0.5]{pictures/invalidation}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -318,8 +318,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no . in font nullfont!
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no 6 in font nullfont!
+Missing character: There is no 5 in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -330,10 +329,18 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no / in font nullfont!
-Missing character: There is no f in font nullfont!
 Missing character: There is no i in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no 3 in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no v in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
 
 ! LaTeX Error: \caption outside float.
 
@@ -752,7 +759,7 @@ or  <return>  to continue without it.
 
 ! Undefined control sequence.
 l.48 \includegraphics
-                     [scale=0.06]{pictures/fig3}
+                     [scale=0.5]{pictures/edgeFattening}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -768,8 +775,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no . in font nullfont!
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no 6 in font nullfont!
+Missing character: There is no 5 in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -780,10 +786,19 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no / in font nullfont!
-Missing character: There is no f in font nullfont!
-Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
 Missing character: There is no g in font nullfont!
-Missing character: There is no 3 in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
 
 ! LaTeX Error: \caption outside float.
 
@@ -1192,7 +1207,7 @@ or  <return>  to continue without it.
 
 ! Undefined control sequence.
 l.68 \includegraphics
-                     [scale=0.1]{pictures/fig7}
+                     [scale=0.15]{pictures/fig7}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1209,6 +1224,7 @@ Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no 1 in font nullfont!
+Missing character: There is no 5 in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -1446,7 +1462,7 @@ or  <return>  to continue without it.
 
 ! Undefined control sequence.
 l.82 \includegraphics
-                     [scale=0.08]{pictures/fig8}
+                     [scale=0.1]{pictures/fig8}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1462,8 +1478,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no . in font nullfont!
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no 8 in font nullfont!
+Missing character: There is no 1 in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no i in font nullfont!
