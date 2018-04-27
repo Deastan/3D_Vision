@@ -3,21 +3,34 @@
 % Jasmin's part
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Test}
-\subsection{Examples}
-\begin{frame}{Examples}
-Bla bla bla
-\begin{itemize}
-\item Bo
-\item Bi
-\item La Bo
-\end{itemize}
-
+\section{UltraStereoAlgorithm}
+\subsection{}
+\begin{frame}{UltraStereo}
 \end{frame}
 
-\begin{frame}{Examples}
-\begin{figure}
-\includegraphics[scale=0.06]{pictures/polop}
-\caption{Examples}
-\end{figure}
+\begin{frame}{UltraStereo}
+\begin{itemize}
+\item two IR cameras: monochrome Ximea cameras, 1280x1024 pixel at 210Hz
+\item DOE projector
+\item rectified images 
+\item same y but different x -> disparity
+\item big computational challenge
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+nice image with patches...
+\end{frame}
+
+\begin{frame}
+\begin{equation}
+y = sign(x^{T} Z-\theta)
+\end{equation}
+\end{frame}
+
+\begin {frame}{How to chose the parameters}
+image with a binary desicion tree with parameters theta and z and 32 nodes
+\begin{equation}
+I(\delta) = H(S) -\sum_{d\in L,R} \frac{S_{d}(\delta)}{S} H(S_{d}(\delta))
+\end{equation}
 \end{frame}
