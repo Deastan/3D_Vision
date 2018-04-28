@@ -3,10 +3,10 @@
 % Philipp's part
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{State of the art method}
-\begin{frame}{State of the art method, Time of flight}
+\section{State of the art methods}
+\begin{frame}{Time of flight}
 
-Using (varying) active illumination and reconstructing a scene from multiple images
+Varying active illumination to reconstruct a scene from multiple images
 \begin{figure}
 \includegraphics[scale=0.15]{pictures/polop2}
 \includegraphics[scale=0.2]{pictures/polop1}
@@ -21,7 +21,7 @@ Shortcomings:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{State of the art method, Structured Light}
+\begin{frame}{Structured Light}
 
 Spatial patterns projected on the scene
 \begin{figure}
@@ -41,17 +41,17 @@ Shortcomings:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Solution to a lot of these issues: Active Stereo}
+\begin{frame}{Active Stereo}
 
-Using 2 calibrated cameras and 1 pattern-projecting light source
+Using 2 calibrated cameras and 1 light source - solves a lot of the mentioned issues
 \begin{figure}
 \includegraphics[scale=0.1]{pictures/polop5}
 \end{figure}
 \begin{itemize}
 \item Mitigates multipath reflections
 \item Improves robustness
-\item Avoids interference between multiple systems\\
-\item BUT correspondence search has high computational cost
+\item Avoids interference between multiple systems
+\item BUT correspondence search has high computational cost!
 \end{itemize}
 
 \end{frame}
