@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.10)  30 APR 2018 08:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.3.10)  30 APR 2018 09:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2017,38 +2017,38 @@ Package pdftex.def Info: asl_logo_right.pdf used on input line 14.
 <pictures/disp.png, id=156, 395.076pt x 230.66174pt>
 File: pictures/disp.png Graphic file (type png)
  <use pictures/disp.png>
-Package pdftex.def Info: pictures/disp.png used on input line 26.
+Package pdftex.def Info: pictures/disp.png used on input line 24.
 (pdftex.def)             Requested size: 197.5375pt x 115.33058pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 10.40245pt on input line 26.
+(Font)              scaled to size 10.40245pt on input line 24.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 26.
+(Font)              scaled to size 7.59998pt on input line 24.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 26.
+(Font)              <10.95> on input line 24.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 26.
+(Font)              <8> on input line 24.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 10.40245pt on input line 26.
+(Font)              scaled to size 10.40245pt on input line 24.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 7.59998pt on input line 26.
+(Font)              scaled to size 7.59998pt on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 26.
+(Font)              scaled to size 7.59998pt on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 26.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 10.40245pt on input line 26.
+(Font)              scaled to size 10.40245pt on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 26.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 7.59998pt on input line 26.
+(Font)              scaled to size 7.59998pt on input line 24.
 File: eth_logo_kurz_neg_13.pdf Graphic file (type pdf)
 
 <use eth_logo_kurz_neg_13.pdf>
-Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 26.
+Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 24.
 (pdftex.def)             Requested size: 40.35918pt x 6.55746pt.
 File: asl_logo_right.pdf Graphic file (type pdf)
  <use asl_logo_right.pdf>
-Package pdftex.def Info: asl_logo_right.pdf used on input line 26.
+Package pdftex.def Info: asl_logo_right.pdf used on input line 24.
 (pdftex.def)             Requested size: 45.76628pt x 11.39996pt.
  [7
 
@@ -2056,16 +2056,16 @@ Package pdftex.def Info: asl_logo_right.pdf used on input line 26.
 File: pictures/patches.png Graphic file (type png)
 
 <use pictures/patches.png>
-Package pdftex.def Info: pictures/patches.png used on input line 36.
+Package pdftex.def Info: pictures/patches.png used on input line 34.
 (pdftex.def)             Requested size: 213.92084pt x 74.43866pt.
 File: eth_logo_kurz_neg_13.pdf Graphic file (type pdf)
  <use eth_logo_kurz_neg_13.pdf>
-Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 36.
+Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 34.
 (pdftex.def)             Requested size: 40.35918pt x 6.55746pt.
 File: asl_logo_right.pdf Graphic file (type pdf)
 
 <use asl_logo_right.pdf>
-Package pdftex.def Info: asl_logo_right.pdf used on input line 36.
+Package pdftex.def Info: asl_logo_right.pdf used on input line 34.
 (pdftex.def)             Requested size: 45.76628pt x 11.39996pt.
  [8
 
@@ -2073,16 +2073,16 @@ Package pdftex.def Info: asl_logo_right.pdf used on input line 36.
 <pictures/tree.png, id=175, 630.55576pt x 350.5095pt>
 File: pictures/tree.png Graphic file (type png)
  <use pictures/tree.png>
-Package pdftex.def Info: pictures/tree.png used on input line 48.
+Package pdftex.def Info: pictures/tree.png used on input line 46.
 (pdftex.def)             Requested size: 220.69781pt x 122.68016pt.
 File: eth_logo_kurz_neg_13.pdf Graphic file (type pdf)
 
 <use eth_logo_kurz_neg_13.pdf>
-Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 48.
+Package pdftex.def Info: eth_logo_kurz_neg_13.pdf used on input line 46.
 (pdftex.def)             Requested size: 40.35918pt x 6.55746pt.
 File: asl_logo_right.pdf Graphic file (type pdf)
  <use asl_logo_right.pdf>
-Package pdftex.def Info: asl_logo_right.pdf used on input line 48.
+Package pdftex.def Info: asl_logo_right.pdf used on input line 46.
 (pdftex.def)             Requested size: 45.76628pt x 11.39996pt.
  [9
 
@@ -2400,7 +2400,7 @@ f/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on midterm_pres.pdf (25 pages, 9085090 bytes).
+Output written on midterm_pres.pdf (25 pages, 9084603 bytes).
 PDF statistics:
  336 PDF objects out of 1000 (max. 8388607)
  246 compressed objects within 3 object streams
