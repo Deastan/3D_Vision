@@ -10,11 +10,11 @@ Issues which the pixels from the final depth image won't contain any estimations
 \begin{itemize}
 \item Occlusions
 \item Saturation of infrared sensors
-\item low signal noise ratio
+\item Low signal noise ratio
 \end{itemize}
 How limits this errors ?
 \begin{itemize}
-\item an algorithms does an invalidation pass durint the post-processing step
+\item An algorithms does an invalidation pass durint the post-processing step
 \end{itemize}
 \end{frame}
 
@@ -36,9 +36,9 @@ Look at the thin structures like plants
 \begin{frame}{Edge fattening}
 Other issiue is the edge fattening. To measure it they :
 \begin{itemize}
-\item used a hand to test their algorithms
-\item put a hand at 1 m from the sensors
-\item defined key hand pose for each frame
+\item Used a hand to test their algorithms
+\item Put a hand at 1 m from the sensors
+\item Defined key hand pose for each frame
 \end{itemize}
 \end{frame}
 
@@ -73,26 +73,25 @@ Other issiue is the edge fattening. To measure it they :
 \subsection{Interference and Generalization}
 \begin{frame}{Interference and Generalization}
 \begin{itemize}
-\item interference caused by multiple sensors
+\item Interference caused by multiple sensors
+\item Camera calibrations
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Interference and Generalization}
 \begin{figure}
 \includegraphics[scale=0.1]{pictures/fig8}
-\caption{Examples of depth-maps produced with UltraStereo and state of the art competitors. Notice how the method in shows high invalidation in regions where the texture changes, the method is offline and still it fails delivering complete depth-maps especially in thin structures like the the plant.}
+\caption{Examples of depth-maps produced with UltraStereo and state of the art competitors.}
 \end{figure}
 \end{frame}
 
 \section{Conclusion}
 \begin{frame}{Conclusion}
-Best algorithms ever made !
-From the paper :
 \begin{itemize}
-\item breakthrough in the field of active stereo depth estimation 
-\item does not depend of the e windows size nor the size of the disparity space
-\item use machine learning algorithms
-\item run on GPU
-\item does not suffer from pe camera calibrations nor interference problems
+\item Breakthrough in the field of active stereo depth estimation 
+\item Does not depend of the windows size or the size of the disparity space
+\item Use machine learning algorithms
+\item Run on GPU
+\item Does not suffer from camera calibrations nor interference problems
 \end{itemize}
 \end{frame}
