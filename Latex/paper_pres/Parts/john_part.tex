@@ -12,9 +12,9 @@ Issues which the pixels from the final depth image won't contain any estimations
 \item Saturation of infrared sensors
 \item Low signal noise ratio
 \end{itemize}
-How limits this errors ?
+How to limits those errors ?
 \begin{itemize}
-\item An algorithms does an invalidation pass durint the post-processing step
+\item An algorithms does an invalidation pass during the post-processing step
 \end{itemize}
 \end{frame}
 
@@ -34,16 +34,15 @@ Look at the thin structures like plants
 \end{frame}
 
 \begin{frame}{Edge fattening}
-Other issiue is the edge fattening. To measure it they :
+Other issue is the edge fattening. To measure it they :
 \begin{itemize}
 \item Used a hand to test their algorithms
-\item Put a hand at 1 m from the sensors
+\item Put a hand at 1 m away from the sensors
 \item Defined key hand pose for each frame
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Edge fattening}
-
 \begin{figure}
 \includegraphics[scale=0.25]{pictures/edgeFattening}
 \caption{Quantitative results on syntatic data}
@@ -86,7 +85,7 @@ Other issiue is the edge fattening. To measure it they :
 \begin{frame}{Conclusion}
 \begin{itemize}
 \item Breakthrough in the field of active stereo depth estimation 
-\item Does not depend of the windows size or the size of the disparity space
+\item Does not depend on the windows's size or the size of the disparity space
 \item Use machine learning algorithms
 \item Run on GPU
 \item Does not suffer from camera calibrations nor interference problems
