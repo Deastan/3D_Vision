@@ -1,8 +1,8 @@
-/JohnVideos
-
 *.MP4
 *.PNG
 *.JPG
+*.png
+*.jpg
 
 *.toc
 *.nav
