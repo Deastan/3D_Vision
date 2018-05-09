@@ -10,13 +10,14 @@ cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1402.MP4')
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
-arraySearch = True
+arraySearch = False
 ######################################################################################################
 
 
 histoBlue_current=[0 for x in range(256)]
 histoGreen_current=[0 for x in range(256)]
 histoRed_current=[0 for x in range(256)]
+beesLastFrame =[]
 
 
 def createHistoArray(frameTolookAt, labelNumber):
@@ -47,7 +48,10 @@ while (1):
 
 
     if frameNumber!=1:
-        labels=Utilities.connectedComponents(fgmask, original, realOriginal)
+        labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
+        if frameNumber>=2:
+            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame)
+        beesLastFrame = beesCurrentFrame
 
 
 
@@ -59,6 +63,7 @@ while (1):
         cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
         cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Bee recognition', 1200, 800)
+        cv2.line(original,(0,500),(1920,500),(255,0,0),2)
         cv2.imshow('Bee recognition', original)
 
 
