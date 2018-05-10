@@ -22,11 +22,44 @@ print(sum(blueShadow_static)+sum(greenShadow_static)+sum(redShadow_static)+sum(b
 
 
 showShadows=False
+
 ######################################################################################################
 
 
 
 class Utilities:
+
+    @staticmethod
+    def counter(beesCurrentFrame, beesLastFrame):
+        matchingArray = [-1 for x in range(len(beesLastFrame))]
+        alreadyUsed = [-1 for x in range(len(beesLastFrame))]
+        for beeLast in range(len(beesLastFrame)):
+            minDist =10**15
+            for beeCurrent in range(len(beesCurrentFrame)):
+                if not beeCurrent in alreadyUsed:
+                    distSquare = (beesCurrentFrame[beeLast][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeLast][0]-beesLastFrame[beeLast][0])**2
+                    if distSquare<minDist:
+                        minDist=distSquare
+                        minArg=beeCurrent
+        #NTH: better find ALL the distances between all the bees and then start with the smallest one etc. until a threshold is reached or the beesCurrentframe array is empty.
+
+            matchingArray[beeLast]=minArg ## check whether that is correct!!
+            alreadyUsed.append(minArg)
+
+        thresholdY=500 #find the actual number. draw a line!!!
+
+        beesIn = 0
+        beesOut=0
+
+        for match in matchingArray:
+            if beesLastFrame[match][1]<thresholdY and beesCurrentFrame[matchingArray[match]][1]>thresholdY:
+                beesIn+=1
+            elif beesLastFrame[match][1]>thresholdY and beesCurrentFrame[matchingArray[match]][1]<thresholdY:
+                beesOut+=1
+        print("\nOut: ", beesOut)
+        print("In: ", beesIn)
+        return beesIn, beesOut
+
 
 
     @staticmethod
@@ -128,6 +161,7 @@ class Utilities:
         centroids = output[3]
 
         # j = 0
+        beesCurrentFrame=[]
         for i in range(1, num_labels):  # don't do 0, cause it's just the background
             if stats[i, 4] > 1500:  # threshold to filter out small patches
                 tmp=np.array(realOriginal)
@@ -136,12 +170,13 @@ class Utilities:
                     #j += 1 #i is the original label, j is to not take into account the small ones. but for development i is better.
                     cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!
                     cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
+                    beesCurrentFrame.append(centroids[i])
                 else:
                     if showShadows==True:
                         cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!
                         cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
 
-        return labels
+        return labels, beesCurrentFrame
 
 
 
