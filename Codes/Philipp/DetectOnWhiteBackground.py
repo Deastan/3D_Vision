@@ -1,12 +1,18 @@
-from Codes.Philipp.Utilities import Utilities
 import numpy as np
+from Utilities import Utilities
 import cv2
 import time
+import os
 
 
 frameNumber = 0
 global realOriginal #is the image without ellipses/numbers
-cap = cv2.VideoCapture('/home/philipp/Desktop/GOPR1402.MP4')
+# name of the video:
+videoName = 'GOPR1402.MP4'
+# define path of the video
+currentPath = os.getcwd()
+videoPath = os.path.join('../../Media',videoName)
+cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
@@ -71,7 +77,7 @@ while (1):
     if frameNumber == 1:
         out = cv2.VideoWriter('/home/philipp/Desktop/ellipses.avi', fourcc, 15, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
     out.write(original)
-    print("\r frame" + str(frameNumber), end="")
+    # print("\r frame" + str(frameNumber), end="")
     # time.sleep(8)
 
 
@@ -112,8 +118,3 @@ while (1):
         break
 cap.release()
 cv2.destroyAllWindows()
-
-
-
-
-
