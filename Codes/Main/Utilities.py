@@ -282,7 +282,6 @@ class Utilities:
                     out = cv2.VideoWriter(videoPath, fourcc, 10, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
                 out.write(original)
 
-
             k = cv2.waitKey(1) & 0xff
             if k == 27:
                 break
