@@ -107,6 +107,7 @@ while(1):
                 # print(cv2.contourArea(cnt))
                 # newContours = [newContours, cv2.drawContours(frame, cnt, -1,(0,255,0),3)]
         cv2.imshow('newContours',frame)
+        cv2.imshow('newContours',median)
         k=cv2.waitKey(30) & 0xFF
         if k ==27:
             break

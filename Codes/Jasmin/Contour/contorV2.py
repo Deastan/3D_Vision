@@ -44,7 +44,6 @@ while(1):
     img,contours, hierarchy = cv2.findContours(blur,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     if contours !=[]:
         anzBees = len(beeTable)
-        newContours = contours
         newBeeTable = []
         for cnt in contours:
             if (cv2.contourArea(cnt)>500):
@@ -53,7 +52,7 @@ while(1):
                 cy = (M["m01"]/M["m00"])
                 if BeenrInit:
                     beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True)
-                    beeTableOld = beeTable
+                    # beeTableOld = beeTable
                 else:
                     newBee = Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True)
                     incr, beenr = Utils.checkDist(cx,cy, beeTable)
@@ -91,6 +90,7 @@ while(1):
 
             BeenrInit=False
         cv2.imshow('newContours',frame)
+        # cv2.imshow('newContours',median)
         out.write(frame)
         k=cv2.waitKey(30) & 0xFF
         if k ==27:

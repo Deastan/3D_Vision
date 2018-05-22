@@ -1,15 +1,19 @@
 import cv2
 import sys
 import os
+from Utils import Utils
 
 if __name__ == '__main__' :
     videoName = 'GOPR1402.MP4'
     currentPath = os.getcwd()
     videoPath = os.path.join('../../../Media',videoName)
     minor_ver =3
+    (major, minor_ver,_) = cv2.__version__.split(".")
+
 
     # Set up tracker.
     # Instead of MIL, you can also use
+
 
     tracker_types = ['BOOSTING', 'MIL','KCF', 'TLD', 'MEDIANFLOW', 'GOTURN']
     tracker_type = tracker_types[2]
@@ -45,13 +49,19 @@ if __name__ == '__main__' :
         sys.exit()
 
     # Define an initial bounding box
-    bbox = (287, 23, 86, 320)
+    a, b, c, d = Utils.getPosBee(videoPath)
+
 
     # Uncomment the line below to select a different bounding box
-    bbox = cv2.selectROI(frame, False)
+    # bbox = cv2.selectROI(frame, False)
 
     # Initialize tracker with first frame and bounding box
-    ok = tracker.init(frame, bbox)
+    box_init = (a[0],b[0],c[0],d[0])
+    print(box_init)
+    ok = tracker.init(frame,box_init)
+
+    for box in range(1,(len(a)-1)):
+        tracker.add(frame,(a[box],b[box],c[box],d[box]))
 
     while True:
         # Read a new frame
