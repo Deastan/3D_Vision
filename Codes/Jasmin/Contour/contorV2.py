@@ -51,10 +51,10 @@ while(1):
                 cx = (M["m10"]/M["m00"])
                 cy = (M["m01"]/M["m00"])
                 if BeenrInit:
-                    beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True)
+                    beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True,[])
                     # beeTableOld = beeTable
                 else:
-                    newBee = Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True)
+                    newBee = Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True,[])
                     incr, beenr = Utils.checkDist(cx,cy, beeTable)
                     if incr:
                         newBee.id = len(beeTable)

@@ -27,9 +27,9 @@ incr = True
 newBeeTable = []
 testBeeTable = []
 BeenrInit = True
-var = False
-lost = 5
+maxcounter = 5
 anzBees = 0
+beenrUpdate = False
 
 while(1):
     ret, frame = cap.read()
@@ -52,78 +52,54 @@ while(1):
                 cx = (M["m10"]/M["m00"])
                 cy = (M["m01"]/M["m00"])
                 if BeenrInit:
-                    beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True)
-                    # beeTableOld = beeTable
+                    beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0,True,cnt))
+                    beenrUpdate=True
+                    # print(len(beeTable))
                 else:
-                    newBeeTable = append(Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True))
-
-        BeenrInit=False
+                    newBeeTable.append(Bee(len(newBeeTable)+len(beeTable),int(cx),int(cy),0,0,0,0,True,cnt))
+        if beenrUpdate:
+            BeenrInit=False
 
         for bee in beeTable:
             cx = bee.positionX
             cy = bee.positionY
+            # bee.screen()
             # Check if bee is in the new table
             lost, beenr = Utils.checkDist(cx,cy, newBeeTable)
             if lost:
                 # check if bee is in lost bees
                 lostagain, beenr = Utils.checkDist(cx,cy,lostBeesTable)
                 if lostagain:
-                    bee.counter+=1
-                    lostBeesTable.append(bee)
+                    # check if the new bee should be added to the beeTable
                     bee.state = 3
-
+                    lostBeesTable.append(bee)
                 else:
-                    bee.counter=0
-                    bee.id = beenr
-                    bee.update = True
-                    bee.state = 2
-                    #missing the update of the bee!!
+                    bee = Utils.updateBee(cx,cy,bee,bee.id)
+                    beeTable[beenr] = bee
+                    ellipse = cv2.fitEllipse(bee.cnt)
+                    cv2.ellipse(frame,ellipse,(0,0,255),2)
+                    cv2.putText(frame,str(bee.id),(int(bee.positionX),int(bee.positionY)),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2,cv2.LINE_AA)
+                    # frame = Utils.drawBee(bee,frame)
             else:
-                # bee.counter = 0
-                bee.id = beenr
-                bee.update = True
-                bee.state = 2
+                bee = Utils.updateBee(cx,cy,bee,bee.id)
+                beeTable[beenr] = bee
+                frame = Utils.drawBee(bee,frame)
+                ellipse = cv2.fitEllipse(bee.cnt)
+                cv2.ellipse(frame,ellipse,(0,0,255),2)
+                cv2.putText(frame,str(bee.id),(int(bee.positionX),int(bee.positionY)),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2,cv2.LINE_AA)
 
 
+        # cv2.imshow('newContours',frame)
+        for bee in lostBeesTable:
+            if((cx<1920/25*3)|(cy>1080/18*2)|(cx>1920/25*22)):
+                beeTable.append(bee)
+            bee.counter +=1
+        for bee in beeTable:
+            if bee.update:
+                frame = Utils.drawBee(bee,frame)
+                # bee.update = False
 
-                    incr, beenr = Utils.checkDist(cx,cy, beeTable)
-                    if incr:
-                        newBee.id = len(beeTable)
-
-
-                        beeTable.append(newBee)
-                        ellipse = cv2.fitEllipse(cnt)
-                        cv2.ellipse(frame, ellipse, (0,0,255),2)
-                        cv2.putText(frame,str(newBee.id),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
-
-                    else:
-                        currentBee = beeTable[beenr]
-                        currentBee.speedX = currentBee.positionX-cx
-                        currentBee.speedY = currentBee.positionY-cy
-                        currentBee.state = 2
-                        currentBee.counter =0
-                        currentBee.update = True
-                        currentBee.newPosition(int(cx),int(cy))
-                        beeTable[beenr]=currentBee
-                        currentBee.screen()
-                        ellipse = cv2.fitEllipse(cnt)
-                        cv2.ellipse(frame, ellipse, (0,0,255),2)
-                        print(beenr)
-                        cv2.putText(frame,str(beenr),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
-
-
-
-
-            for i in range(0, anzBees):
-                bee = beeTable[i]
-                if bee.update==False:
-                    bee.counter +=1
-                    if bee.state != 3:
-                        bee.state =3
-
-            BeenrInit=False
         cv2.imshow('newContours',frame)
-        # cv2.imshow('newContours',median)
         out.write(frame)
         k=cv2.waitKey(30) & 0xFF
         if k ==27:

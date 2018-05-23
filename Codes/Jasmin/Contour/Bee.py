@@ -12,9 +12,10 @@ class Bee(object):
     state = 0 # 0: creating bee, 1: fling bee, 2: entering bee 3: lost bee
     counter = 0 # after 100 frames as a lost bee, delete bee
     update = False
+    cnt = []
 
     # constructor
-    def __init__(self, id, positionX, positionY, speedX, speedY, state, counter, update):
+    def __init__(self, id, positionX, positionY, speedX, speedY, state, counter, update, cnt):
         self.id = id
         self.positionX = positionX
         self.positionY = positionY
@@ -23,6 +24,7 @@ class Bee(object):
         self.state = state
         self.counter = counter
         self.update = update
+        self.cnt = cnt
 
     # Method for bee object
 

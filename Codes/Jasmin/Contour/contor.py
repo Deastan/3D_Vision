@@ -50,7 +50,7 @@ while(1):
                 cy = (M["m01"]/M["m00"])
                 # print('centroid', cx,cy)
                 if BeenrInit:
-                    beeTable.append(Bee(len(beeTable)+1,int(cx),int(cy),0,0,0,0))
+                    beeTable.append(Bee(len(beeTable)+1,int(cx),int(cy),0,0,0,0),cnt)
                     BeenrInit = False
                 else:
                     if var:
@@ -64,7 +64,7 @@ while(1):
                     #     cv2.putText(frame,str(newbee.id),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
                     # if((cx>1920/25*3)&(cy<1080/18*2)&(cx<1920/25*22)): # > 230.4,< 950.4;
                     else:
-                        testBee = Bee(len(testBeeTable)+1,int(cx),int(cy),0,0,2,0)
+                        testBee = Bee(len(testBeeTable)+1,int(cx),int(cy),0,0,2,0,cnt)
                         incr, beenr = Utils.checkDist(cx,cy,beeTable)
 
                         if(incr):

@@ -49,19 +49,19 @@ if __name__ == '__main__' :
         sys.exit()
 
     # Define an initial bounding box
-    a, b, c, d = Utils.getPosBee(videoPath)
+    # a, b, c, d = Utils.getPosBee(videoPath)
 
 
     # Uncomment the line below to select a different bounding box
-    # bbox = cv2.selectROI(frame, False)
+    bbox = cv2.selectROI(frame, False)
 
     # Initialize tracker with first frame and bounding box
-    box_init = (a[0],b[0],c[0],d[0])
-    print(box_init)
-    ok = tracker.init(frame,box_init)
+    # box_init = (a[0],b[0],c[0],d[0])
+    # print(box_init)
+    ok = tracker.init(frame,bbox)
 
-    for box in range(1,(len(a)-1)):
-        tracker.add(frame,(a[box],b[box],c[box],d[box]))
+    # for box in range(1,(len(a)-1)):
+        # tracker.add(frame,(a[box],b[box],c[box],d[box]))
 
     while True:
         # Read a new frame

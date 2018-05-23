@@ -41,6 +41,26 @@ class Utils:
 
 
 
+    @staticmethod
+    def updateBee(cx,cy,bee, beenr):
+        bee.counter=0
+        bee.id = beenr
+        print('beenr')
+        bee.update = True
+        bee.state = 2
+        bee.speedX = bee.positionX-cx
+        bee.speedY = bee.positionY-cy
+        bee.PositionX = cx
+        bee.PositionY = cy
+        return bee
+
+    @staticmethod
+    def drawBee(bee, frame):
+        ellipse = cv2.fitEllipse(bee.cnt)
+        cv2.ellipse(frame,ellipse,(0,0,255),2)
+        # bee.screen()
+        cv2.putText(frame,str(bee.id),(int(bee.positionX),int(bee.positionY)),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2,cv2.LINE_AA)
+        return frame
 
 
     @staticmethod
@@ -54,7 +74,7 @@ class Utils:
             if i.state ==2:
                 dx = (cx-i.speedX) -i.positionX
                 dy = (cy-i.speedY) -i.positionY
-            elif i.state==3:
+            elif (i.state==3):
                 dx = (cx-i.speedX*i.counter)-i.positionX
                 dy = (cy-i.speedY*i.counter)-i.positionY
             # test if it could be the same be, because of its relative position towards other bees
