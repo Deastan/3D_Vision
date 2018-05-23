@@ -4,6 +4,8 @@ import os
 from Bee import Bee
 from Utils import Utils
 
+checkHisto = True
+
 EntranceCounter = 0
 ExitCounter = 0
 coorYCrossingline = 360
@@ -66,36 +68,40 @@ while(1):
         newBeeTable = []
         for cnt in contours:
             if (cv2.contourArea(cnt)>500):
-                M = cv2.moments(cnt)
-                cx = (M["m10"]/M["m00"])
-                cy = (M["m01"]/M["m00"])
-                if BeenrInit:
-                    beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True,[])
-                    # beeTableOld = beeTable
-                else:
-                    newBee = Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True,[])
-                    incr, beenr = Utils.checkDist(cx,cy, beeTable)
-                    if incr:
-                        newBee.id = len(beeTable)
-                        beeTable.append(newBee)
-                        ellipse = cv2.fitEllipse(cnt)
-                        cv2.ellipse(frame, ellipse, (0,0,255),2)
-                        cv2.putText(frame,str(newBee.id),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
+                xCentr, yCentr, width, height = cv2.boundingRect(cnt)
+                if Utils.checkColors(frame, xCentr, yCentr, width, height)==True:
 
+
+                    M = cv2.moments(cnt)
+                    cx = (M["m10"]/M["m00"])
+                    cy = (M["m01"]/M["m00"])
+                    if BeenrInit:
+                        beeTable.append(Bee(len(beeTable),int(cx),int(cy),0,0,0,0),True,[])
+                        # beeTableOld = beeTable
                     else:
-                        currentBee = beeTable[beenr]
-                        currentBee.speedX = currentBee.positionX-cx
-                        currentBee.speedY = currentBee.positionY-cy
-                        currentBee.state = 2
-                        currentBee.counter =0
-                        currentBee.update = True
-                        currentBee.newPosition(int(cx),int(cy))
-                        beeTable[beenr]=currentBee
-                        currentBee.screen()
-                        ellipse = cv2.fitEllipse(cnt)
-                        cv2.ellipse(frame, ellipse, (0,0,255),2)
-                        print(beenr)
-                        cv2.putText(frame,str(beenr),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
+                        newBee = Bee(len(newBeeTable),int(cx),int(cy),0,0,0,0,True,[])
+                        incr, beenr = Utils.checkDist(cx,cy, beeTable)
+                        if incr:
+                            newBee.id = len(beeTable)
+                            beeTable.append(newBee)
+                            ellipse = cv2.fitEllipse(cnt)
+                            cv2.ellipse(frame, ellipse, (0,0,255),2)
+                            cv2.putText(frame,str(newBee.id),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
+
+                        else:
+                            currentBee = beeTable[beenr]
+                            currentBee.speedX = currentBee.positionX-cx
+                            currentBee.speedY = currentBee.positionY-cy
+                            currentBee.state = 2
+                            currentBee.counter =0
+                            currentBee.update = True
+                            currentBee.newPosition(int(cx),int(cy))
+                            beeTable[beenr]=currentBee
+                            currentBee.screen()
+                            ellipse = cv2.fitEllipse(cnt)
+                            cv2.ellipse(frame, ellipse, (0,0,255),2)
+                            print(beenr)
+                            cv2.putText(frame,str(beenr),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
 
 
 
