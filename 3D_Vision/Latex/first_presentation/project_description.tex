@@ -1,0 +1,148 @@
+% ETH Zurich - 3D Photography 2015
+% http://www.cvg.ethz.ch/teaching/3dphoto/
+% Template for project proposals
+
+\documentclass[11pt,a4paper,oneside,onecolumn]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{xcolor}
+% Enter the project title and your project supervisor here
+\newcommand{\ProjectTitle}{Beehive Traffic}
+\newcommand{\ProjectSupervisor}{Sattler Torsten}
+\newcommand{\DateOfReport}{March 9, 2018}
+
+% Enter the team members' names and path to their photos. Comment / uncomment related definitions if the number of members are different than 2.
+% Including photographs are optional. Photos are there to help us to evaluate your group more effectively. If you wish not to include your photos, please comment the following line.
+\newcommand{\PutPhotos}{}
+% Please include a clear photo of each member. (use pdf or png files for Latex to embed them in the document well)
+\newcommand{\memberone}{Jonathan Burkhard}
+\newcommand{\memberonepicture}{john.jpg}
+\newcommand{\membertwo}{Jasmin Fischli}
+\newcommand{\membertwopicture}{Jasmin.jpg}
+\newcommand{\memberthree}{Philipp G{\"o}ldlin}
+\newcommand{\memberthreepicture}{pölöp.jpg}
+\newcommand{\memberfour}{Julie Veya}
+\newcommand{\memberfourpicture}{Julie.jpg}
+% \newcommand{\memberfive}{Member Name}
+% \newcommand{\memberfivepicture}{pic2.png}
+
+
+%%%% DO NOT EDIT THE PART BELOW %%%%
+\title{\ProjectTitle}
+\author{3D Vision Project Proposal\\Supervised by: \ProjectSupervisor\\ \DateOfReport}
+\begin{document}
+\maketitle
+\vspace{-1.5cm}\section*{Group Members}\vspace{0.3cm}
+\begin{center}\begin{minipage}{\linewidth}\begin{center}
+\begin{minipage}{3 cm}\begin{center}\memberone\ifdefined\PutPhotos\\\vspace{0.2cm}\includegraphics[height=3cm]{\memberonepicture}\fi\end{center}\end{minipage}
+\ifdefined\membertwo\begin{minipage}{3 cm}\begin{center}\membertwo\ifdefined\PutPhotos\\\vspace{0.2cm}\includegraphics[height=3cm]{\membertwopicture}\fi\end{center}\end{minipage}\fi
+\ifdefined\memberthree\begin{minipage}{3 cm}\begin{center}\memberthree\ifdefined\PutPhotos\\\vspace{0.2cm}\includegraphics[height=3cm]{\memberthreepicture}\fi\end{center}\end{minipage}\fi
+\ifdefined\memberfour\begin{minipage}{3 cm}\begin{center}\memberfour\ifdefined\PutPhotos\\\vspace{0.2cm}\includegraphics[height=3cm]{\memberfourpicture}\fi\end{center}\end{minipage}\fi
+\ifdefined\memberfive\begin{minipage}{3 cm}\begin{center}\memberfive\ifdefined\PutPhotos\\\vspace{0.2cm}\includegraphics[height=3cm]{\memberfivepicture}\fi\end{center}\end{minipage}\fi
+\end{center}\end{minipage}\end{center}\vspace{0.3cm}
+%%%% END OF PROTECTED LINES %%%%
+
+
+%%%% BEGIN WRITING THE DOCUMENT HERE %%%%
+
+\section{Description of the project}
+One problem a beekeeper can encounter during spring, is the sudden swarming of his bees. They do so to find a new location for their colony.
+
+In this project we want to count the number of bees that enter and leave the hive at any particular time, to be able to detect such a bee swarming. Using a GoPro camera, we will take several short videos and apply background subtraction followed by segmentation using OpenCV to recognize the bees. To track the path of the bees in 3D, we will use OpenCV.
+
+For the support of our project we found a paper \cite{paper}\relax which uses the tracking software 'SwarmSight' in combination with one camera for counting bees. 
+
+
+% A high level description of the project, mentioning the main goal, the input and planned output data. Typically 4-5 sentences, also citing immediately related literature \cite{paper}.
+% Je ne sais pas comment il faut citer le paper: https://www.ncbi.nlm.nih.gov/pubmed/29364251
+
+\section{Work packages and timeline}
+
+\begin{center}
+\begin{tabular}{p{11cm}ll}
+\hline
+\textbf{Task} & \textbf{Group Member} & \textbf{Time period} \\ \hline
+
+
+Literature research, get familiar with Python, OpenCV & Everyone & Weeks 3 to 5\\ \hline
+
+
+Taking several video recordings (test installation, different camera positions, uniformization of background) & Jonathan & Week 4\\ \hline
+
+
+Frame to frame association and background subtraction & Julie, Philipp & Weeks 5 to 6\\ \hline
+
+
+Prepare presentation & Everyone & Week 7\\ \hline
+
+
+\textbf{Midterm presentation} & Everyone & 09.04. \\ \hline
+
+
+Implement segmentation and ellipse fitting & Jasmin, Philipp & Weeks 8 to 10\\ \hline
+
+
+Determine trajectories using OpenCV & Jonathan & Weeks 10 to 11\\ \hline
+
+
+Determine a logic to count incoming and outcoming bees & Julie & Week 12 \\ \hline
+
+
+Reflect on further improvement, possible enhancement of method and/or measurement & Everyone & Weeks 12 to 13\\ \hline
+
+
+Prepare final presentation & Everyone & Week 14\\ \hline
+
+
+\textbf{Final presentation} & Everyone & 28.05. \\ \hline
+Write the final report & Everyone & Weeks 15 to 16\\ \hline
+
+
+\textbf{Final written report} & Everyone & 15.06.\\ \hline
+
+\end{tabular}
+\end{center}
+
+\break
+
+Some problems we will encounter during the project are listed below:
+\begin{itemize}
+\item First of all, the hive has a brownish color, which causes a small difference in color between the bees and the hive. To facilitate the background subtraction we will put a coloured paper on the hive to better recognize the bees.
+\item Another challenge will be to detect the rapid movement of the bees for which we need a frame rate high enough to map the trajectory of the bees through the consecutive pictures.
+\item Furthermore we will have overlapping bees. Solving this issue will be complicated using a single camera. But since we are interested only in the number of bees this does not falsify our result if we confuse two bees with each other. Additionally if we are able to track the bees' paths using OpenCV then we could be be able to distinguish the bees from one another.
+\item We might not be able to distinguish bees from other insects. But we assume that this implies only a negligible error.
+\end{itemize}
+
+
+%Detailed descriptions of work packages you planned, their outcomes, the responsible group member and estimated timeline. Specify the challenges that will be tackled and considered solutions with possible alternatives, citing related documents if applicable. Mention the platform (Android, PC etc.) and the language (C++ etc.) you plan to use.
+
+\section{Outcomes and Demonstration}
+
+At the end of this project we want to be able to count the bees entering and leaving the hive. Furthermore we want to track the bees using a single camera. At the end of the semester we will demonstrate the results with recorded videos, on which the bees' path is tracked.
+% Give detailed information on the expected outcome of your project and the experiments you plan to test your implementation. If applicable, describe the online or offline demo you plan to present at the end of the semester.
+
+
+%\vspace{1cm}
+%\textbf{Instructions:} 
+
+%\begin{itemize}
+%\item The document should not exceed two pages %including the references.
+%\item Please name the document \textbf{3DVision%%\_Proposal\_Surname1\_Surname2.pdf} and upload it via %the moodle.
+%\end{itemize}
+
+
+
+{%\singlespace
+{\small
+\bibliography{refs}
+\bibliographystyle{plain}}}
+
+\begin{thebibliography}{unsrt}
+  \bibitem{paper}
+    Justas Birgiolas \& Christopher M. Jernigan \& Brian H. Smith \& Sharon M. Crook \emph{SwarmSight: Measuring the temporal progression of animal
+group activity levels from natural-scene and laboratory videos} (Psychonomic Society, USA, 2016).
+\end{thebibliography}
+
+\end{document}
+
+
+

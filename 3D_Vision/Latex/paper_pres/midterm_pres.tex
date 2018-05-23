@@ -1,0 +1,100 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum, lmodern}
+\usepackage[scaled=.95]{helvet}% helvetica as the origin of arial
+\usepackage[helvet]{sfmath}    % for the mathematical enviroments
+\usepackage{graphicx}
+\usepackage{multimedia}% for add a movie
+\usepackage{hyperref}
+\usepackage{media9} %for movie : 
+
+% To simplify for people wiwithout knowledge on Latex
+\usepackage{array}% Tableau si besoin
+\usepackage{multirow}
+\usepackage{rotating,tabularx}
+\usepackage{hyperref} % Pour créer des liens hypertexts: \url{my_url}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{amsmath} % Equation non numÂrotÂe et autres
+\usepackage{esint} % double, triple integrals
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{dsfont} % Ensembles C,R,N ,...
+% End of package add from my last projects
+
+\renewcommand{\familydefault}{\sfdefault}
+
+%% ETH beamer theme
+% Options: [default]
+%   itemsblack/[itemsblue]: change color of bullets etc. to black/blue in itemize style environments
+%   [titlesblack]/titlesblue: change color of frame titles/subtitles to black/blue
+% \usetheme[itemsblack,titlesblack]{eth}
+\usetheme{eth}
+
+%% Theme uses ETH blue color by default. Can be changed to any color using this command: 
+% \setbeamercolor{structure}{fg=blue}
+
+%% Mandatory variables
+\author{Jasmin Fischli, Philipp Göldlin, Julie Veya, Jonathan Burkhard}
+\title{Paper presentation : UltraStereo: Efficient Learning-based Matching for Active Stereo Systems}
+\date{\today}
+
+%% Optional variables
+ \supervisor{Sattler Torsten} % for one supervisor
+%\supervisors{Carol Foote, Jane Smith} % for multiple supervisors
+% \projecttype{Master's Thesis}
+
+\begin{document}
+
+\frame{\maketitle}
+\begin{frame}{Table of contents}{}
+	\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Part from each person
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{Parts/polop_part}
+\include{Parts/jasmin_part}
+\include{Parts/julie_part}
+\include{Parts/john_part}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Questions, etc...
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+\begin{frame}{References}
+Pictures:
+{\tiny
+\begin{itemize}
+\item \url{https://www.hardcoregamer.com/2015/04/06/microsoft-discontinuing-kinect-v2-for-windows/143071/}
+\item \url{https://www.researchgate.net/figure/Active-stereo-example-of-a-time-of-flight-system-A-point-laser-emits-a-pulse-that-is_fig5_226177485}
+\item \url{https://www.tokopedia.com/sunsignstore/intel-realsense-f200-developer-kit}
+\item \url{https://www.researchgate.net/figure/a-Our-active-stereo-vision-system-configuration-b-Image-taken-from-left-camera_fig1_320389480}
+\end{itemize}
+}
+\end{frame}
+
+\section{Questions ?}
+\begin{frame}{Questions}
+\centering
+\Huge{?}
+\end{frame}
+
+\begin{frame}{}
+\centering
+\Huge{Thank you for your attention !}
+\end{frame}
+
+
+
+\end{document}%Document end *************************************************

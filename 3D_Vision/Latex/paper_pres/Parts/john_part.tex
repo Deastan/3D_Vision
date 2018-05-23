@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% John's part
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Invalidation}
+\begin{frame}{Invalidation}
+Issues which the pixels from the final depth image won't contain any estimations :
+\begin{itemize}
+\item Occlusions
+\item Saturation of infrared sensors
+\item Low signal noise ratio
+\end{itemize}
+How to limits those errors ?
+\begin{itemize}
+\item An algorithms does an invalidation pass during the post-processing step
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Invalidation}
+\begin{figure}
+\includegraphics[scale=0.25]{pictures/invalidation}
+\caption{Quantitative results on syntatic data}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Example of depth-map produced with UltraStereo}
+Look at the thin structures like plants
+\begin{figure}
+\includegraphics[scale=0.08]{pictures/fig5}
+\caption{Qualitative Evaluation}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Edge fattening}
+Other issue is the edge fattening. To measure it they :
+\begin{itemize}
+\item Used a hand to test their algorithms
+\item Put a hand at 1 m away from the sensors
+\item Defined key hand pose for each frame
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Edge fattening}
+\begin{figure}
+\includegraphics[scale=0.25]{pictures/edgeFattening}
+\caption{Quantitative results on syntatic data}
+\end{figure}
+\end{frame}
+
+%\begin{frame}{Edge fattening}
+%\begin{figure}
+%\includegraphics[scale=0.15]{pictures/fig6}
+%\caption{Example of pointcloud produced with the algorithm. Notice the absence of quantization and flying pixels}
+%\end{figure}
+%\end{frame}
+
+\subsection{Binary representation}
+\begin{frame}{Binary representation}
+\begin{itemize}
+\item Compare UltraStereo with Census and Locality Sensitive Hashing (LSH)
+\item Collect 1000 images with the Kinnect
+\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.15]{pictures/fig7}
+\caption{Census use 121 bits, LSH and UltraStereo use only 32 bits}
+\end{figure}
+\end{frame}
+
+\subsection{Interference and Generalization}
+
+\begin{frame}{Interference and Generalization}
+\begin{itemize}
+\item Interference caused by multiple sensors
+\item Camera calibrations
+\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.1]{pictures/fig8}
+\caption{Examples of depth-maps produced with UltraStereo and state of the art competitors.}
+\end{figure}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+\begin{itemize}
+\item Breakthrough in the field of active stereo depth estimation 
+\item Does not depend on the windows's size or the size of the disparity space
+\item Use machine learning algorithms
+\item Run on GPU
+\item Does not suffer from camera calibrations nor interference problems
+\end{itemize}
+\end{frame}
