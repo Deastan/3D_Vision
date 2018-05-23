@@ -92,7 +92,8 @@ class Utils:
                 # print('rmin: ', rmin)
                 # print('r: ', r)
                 bee = beeTable[np.argmin(r)]
-                if bee.counter<5:
+                if bee.counter<10:
+                    # print('found Bee')
                     beenr = np.argmin(r)
                     # print(beenr)
                     incr = False
