@@ -22,6 +22,7 @@ print(sum(blueShadow_static)+sum(greenShadow_static)+sum(redShadow_static)+sum(b
 
 
 showShadows=False
+velocityTrack = False
 
 ######################################################################################################
 
@@ -30,7 +31,7 @@ showShadows=False
 class Utilities:
 
     @staticmethod
-    def counter(beesCurrentFrame, beesLastFrame, original):
+    def counter(beesCurrentFrame, beesLastFrame, original, beesVelocity):
 
         beesIn = 0
         beesOut=0
@@ -38,7 +39,7 @@ class Utilities:
 
 
         matchingArray = [-1 for x in range(len(beesLastFrame))]
-        alreadyUsed = [-1 for x in range(len(beesLastFrame))]
+        # alreadyUsed = [-1 for x in range(len(beesLastFrame))]
         # for beeLast in range(len(beesLastFrame)):
         #     minDist =10**15
         #     for beeCurrent in range(len(beesCurrentFrame)):
@@ -52,7 +53,11 @@ class Utilities:
         for beeLast in range(len(beesLastFrame)):
             for beeCurrent in range(len(beesCurrentFrame)):
                 #old frame: row-indices, new frame: col-indices
-                distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
+                if velocityTrack==True:
+                    distSquare[beeLast, beeCurrent] = ((beesCurrentFrame[beeCurrent][0])-beesLastFrame[beeLast][0]+ beesVelocity[beeLast][0])**2 + ((beesCurrentFrame[beeCurrent][1])-beesLastFrame[beeLast][1]+ beesVelocity[beeLast][1])**2
+                else:
+                    distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
+
         for beeNumber in range(len(beesLastFrame)):
         # while not (distSquare.shape[0]==1 or distSquare.shape[1]==1):
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
@@ -74,7 +79,7 @@ class Utilities:
 
             # matchingArray[beeLast]=minArg ## check whether that is correct!!
             cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
-            thresholdY=550 #find the actual number. draw a line!!!
+            thresholdY=570 #find the actual number. draw a line!!!
 
             if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
                 beesIn+=1

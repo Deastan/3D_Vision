@@ -29,6 +29,8 @@ beesLastFrame =[]
 sumBeesIn = 0
 sumBeesOut= 0
 
+beesVelocity=[]
+
 
 def createHistoArray(frameTolookAt, labelNumber):
     global histoBlue_current, histoGreen_current, histoRed_current
@@ -61,14 +63,17 @@ while (1):
     if frameNumber!=1:
         labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         if frameNumber>=2:
-            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original)
+            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, beesVelocity)
             sumBeesIn+=beesIn
             sumBeesOut+=beesOut
             cv2.putText(original, "In:" +str(beesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             cv2.putText(original, "Out:" +str(beesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 220), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 270), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+
+        beesVelocity = beesCurrentFrame[:]-beesLastFrame[:]
         beesLastFrame = beesCurrentFrame
+
 
 
 
@@ -80,7 +85,7 @@ while (1):
         cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
         cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Bee recognition', 1200, 800)
-        cv2.line(original,(0,550),(1920,550),(255,0,0),2)
+        cv2.line(original,(0,570),(1920,570),(255,0,0),2)
         cv2.imshow('Bee recognition', original)
 
 
