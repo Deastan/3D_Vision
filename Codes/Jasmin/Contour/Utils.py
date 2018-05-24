@@ -86,8 +86,7 @@ class Utils:
                         b.append(cy)
                         c.append(2*n)
                         d.append(n)
-        # print(frame.shape)
-        # print(a,b,c,d)
+
         return a,b,c,d
 
 
@@ -113,13 +112,34 @@ class Utils:
         cv2.putText(frame,str(bee.id),(int(bee.positionX),int(bee.positionY)),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2,cv2.LINE_AA)
         return frame
 
+    @staticmethod
+    def visible(bee, beeTable):
+        visi = True
+        x_bee, y_bee, w_bee, h_bee = cv2.boundingRect(bee.cnt)
+        a_bee = x_bee-w_bee/2
+        b_bee = x_bee+w_bee/2
+        c_bee = y_bee-h_bee/2
+        d_bee = y_bee+h_bee/2
+        for bee_test in beeTable:
+            x_test, y_test, w_test, h_test = cv2.boundingRect(bee_test.cnt)
+            a_test = x_test-w_test/2
+            b_test = x_test+w_test/2
+            c_test = y_test-h_test/2
+            d_test = y_test+h_test/2
+            if ((bee.id==17)&(bee_test.id ==19))|((bee.id==19)&(bee_test.id==17)):
+                print('a_test',a_test,'b_test: ',b_test, 'c_test:', c_test,'d_test',d_test,'a_bee',a_bee,'b_bee',b_bee,'c_bee',c_bee,'d_bee',d_bee)
+            # if ((a_test<a_bee)&(b_test>b_bee)&(c_test<c_bee)&(d_test>d_bee))|((a_test>a_bee)&(b_test<b_bee)&(c_test>c_bee)&(d_test<d_bee)):
+            if ((((a_test<a_bee)+(b_test>b_bee)+(c_test<c_bee)+(d_test>d_bee))>2)|(((a_test>a_bee)+(b_test<b_bee)+(c_test>c_bee)+(d_test<d_bee))>2)):
+                visi=False
+                break
+        return visi
+
+
 
     @staticmethod
-    def checkDist(cx,cy, beeTable):
-        # print(beeTable)
+    def checkDist(cx,cy,counter, beeTable):
         incr = True
         beenr = 0
-        # print(beeTable)
         r =  []
         for i in beeTable:
             if i.state ==2:
@@ -133,19 +153,13 @@ class Utils:
                 dx = cx-i.positionX
                 dy = cy-i.positionY
             r.append(np.sqrt(pow(dx,2)+pow(dy,2)))
-            # print(r)
 
-            # check with looking at the speed
         if beeTable:
             rmin = np.amin(r)
             if(rmin <150): # if it is without prediction of position use rmin < 150
 
-                # print('rmin: ', rmin)
-                # print('r: ', r)
                 bee = beeTable[np.argmin(r)]
-                if bee.counter<10:
-                    # print('found Bee')
+                if counter<5:
                     beenr = np.argmin(r)
-                    # print(beenr)
                     incr = False
         return (incr, beenr)
