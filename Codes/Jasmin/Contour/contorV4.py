@@ -104,6 +104,7 @@ while(1):
                     bee.state = 0
                     bee.update = False
                 else:
+                    print('beeID', bee.id,'beenr', beenr)
                     newBee = newBeeTable[beenr]
                     newBeeTable.remove(newBee)
                     bee.state = 2
@@ -120,13 +121,13 @@ while(1):
                     if oldY>coorYCrossingline and bee.positionY<coorYCrossingline:
                         exit +=1
                     beeTable[bee.id]=bee
-                    if (bee.id==17)|(bee.id==19):
-                        x,y,w,h = cv2.boundingRect(bee.cnt)
-                        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+                    # if (bee.id==17)|(bee.id==19):
+                    #     x,y,w,h = cv2.boundingRect(bee.cnt)
+                    #     cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
 
                     beeTableTest = beeTable[0:(beeTable.index(bee))]
                     if (bee.id==17)|(bee.id==19):
-                        print(Utils.visible(bee, beeTableTest))
+                        print(Utils.visible(bee, beeTableTest),'framenr: ',framenr)
                     if Utils.visible(bee, beeTableTest):
                         ellipse = cv2.fitEllipse(bee.cnt)
                         cv2.ellipse(frame, ellipse, (0,0,255),2)
@@ -150,7 +151,7 @@ while(1):
             bee.id = len(beeTable)
             bee.state = 0
             beeTable.append(bee)
-            if Utils.visible:
+            if Utils.visible(bee,beeTable):
                 ellipse = cv2.fitEllipse(bee.cnt)
                 cv2.ellipse(frame, ellipse, (0,0,255),2)
                 cv2.putText(frame,str(bee.id),(int(bee.positionX),int(bee.positionY)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)

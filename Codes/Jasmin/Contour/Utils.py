@@ -86,8 +86,7 @@ class Utils:
                         b.append(cy)
                         c.append(2*n)
                         d.append(n)
-        # print(frame.shape)
-        # print(a,b,c,d)
+
         return a,b,c,d
 
 
@@ -127,9 +126,10 @@ class Utils:
             b_test = x_test+w_test/2
             c_test = y_test-h_test/2
             d_test = y_test+h_test/2
-            # if ((bee.id==17)&(bee_test.id ==19))|((bee.id==19)&(bee_test.id==17)):
-            #     print('a_test',a_test,'b_test: ',b_test, 'c_test:', c_test,'d_test',d_test,'a_bee',a_bee,'b_bee',b_bee,'c_bee',c_bee,'d_bee',d_bee)
-            if ((a_test<a_bee)&(b_test>b_bee)&(c_test<c_bee)&(d_test>d_bee))|((a_test>a_bee)&(b_test<b_bee)&(c_test>c_bee)&(d_test<d_bee)):
+            if ((bee.id==17)&(bee_test.id ==19))|((bee.id==19)&(bee_test.id==17)):
+                print('a_test',a_test,'b_test: ',b_test, 'c_test:', c_test,'d_test',d_test,'a_bee',a_bee,'b_bee',b_bee,'c_bee',c_bee,'d_bee',d_bee)
+            # if ((a_test<a_bee)&(b_test>b_bee)&(c_test<c_bee)&(d_test>d_bee))|((a_test>a_bee)&(b_test<b_bee)&(c_test>c_bee)&(d_test<d_bee)):
+            if ((((a_test<a_bee)+(b_test>b_bee)+(c_test<c_bee)+(d_test>d_bee))>2)|(((a_test>a_bee)+(b_test<b_bee)+(c_test>c_bee)+(d_test<d_bee))>2)):
                 visi=False
                 break
         return visi
