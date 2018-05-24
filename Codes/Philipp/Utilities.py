@@ -30,35 +30,87 @@ showShadows=False
 class Utilities:
 
     @staticmethod
-    def counter(beesCurrentFrame, beesLastFrame):
-        matchingArray = [-1 for x in range(len(beesLastFrame))]
-        alreadyUsed = [-1 for x in range(len(beesLastFrame))]
-        for beeLast in range(len(beesLastFrame)):
-            minDist =10**15
-            for beeCurrent in range(len(beesCurrentFrame)):
-                if not beeCurrent in alreadyUsed:
-                    distSquare = (beesCurrentFrame[beeLast][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeLast][0]-beesLastFrame[beeLast][0])**2
-                    if distSquare<minDist:
-                        minDist=distSquare
-                        minArg=beeCurrent
-        #NTH: better find ALL the distances between all the bees and then start with the smallest one etc. until a threshold is reached or the beesCurrentframe array is empty.
-
-            matchingArray[beeLast]=minArg ## check whether that is correct!!
-            alreadyUsed.append(minArg)
-
-        thresholdY=500 #find the actual number. draw a line!!!
+    def counter(beesCurrentFrame, beesLastFrame, original):
 
         beesIn = 0
         beesOut=0
+        minusCounter=0
 
-        for match in matchingArray:
-            if beesLastFrame[match][1]<thresholdY and beesCurrentFrame[matchingArray[match]][1]>thresholdY:
+
+        matchingArray = [-1 for x in range(len(beesLastFrame))]
+        alreadyUsed = [-1 for x in range(len(beesLastFrame))]
+        # for beeLast in range(len(beesLastFrame)):
+        #     minDist =10**15
+        #     for beeCurrent in range(len(beesCurrentFrame)):
+        #         if not beeCurrent in alreadyUsed:
+        #             distSquare = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
+        #             if distSquare<minDist:
+        #                 minDist=distSquare
+        #                 minArg=beeCurrent
+
+        distSquare=1e10*np.ones((len(beesLastFrame), len(beesCurrentFrame)))
+        for beeLast in range(len(beesLastFrame)):
+            for beeCurrent in range(len(beesCurrentFrame)):
+                #old frame: row-indices, new frame: col-indices
+                distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
+        for beeNumber in range(len(beesLastFrame)):
+        # while not (distSquare.shape[0]==1 or distSquare.shape[1]==1):
+            row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
+
+
+
+            if distSquare[row, col]>4000:
+                break
+
+
+
+            matchingArray[row]=col
+            distSquare[row,:]=1e10
+            distSquare[:,col]=1e10
+            # distSquare=np.delete(distSquare, row, axis=0)
+            # distSquare=np.delete(distSquare, col, axis=1)
+
+
+
+            # matchingArray[beeLast]=minArg ## check whether that is correct!!
+            cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
+            thresholdY=550 #find the actual number. draw a line!!!
+
+            if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
                 beesIn+=1
-            elif beesLastFrame[match][1]>thresholdY and beesCurrentFrame[matchingArray[match]][1]<thresholdY:
+                cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+            elif beesCurrentFrame[col][1]<thresholdY and beesLastFrame[row][1]>thresholdY:
                 beesOut+=1
-        print("\nOut: ", beesOut)
-        print("In: ", beesIn)
+                cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+
+
+            print("\nOut: ", beesOut)
+            print("In: ", beesIn)
         return beesIn, beesOut
+
+
+
+
+            # alreadyUsed.append(minArg)
+
+        # thresholdY=500 #find the actual number. draw a line!!!
+
+        # beesIn = 0
+        # beesOut=0
+        # minusCounter=0
+        #
+        # for match in range(len(matchingArray)):
+        #     if match==-1:
+        #         minusCounter+=1
+        #         if beesCurrentFrame[match][1]<thresholdY and beesLastFrame[matchingArray[match]][1]>thresholdY:
+        #             beesIn+=1
+        #             cv2.circle(original,(int(beesCurrentFrame[matchingArray[match]][0]),int(beesCurrentFrame[matchingArray[match]][1])), 20, (0,0,255), -1)
+        #             cv2.line(original,(int(beesLastFrame[match][0]),int(beesLastFrame[match][1])),(int(beesCurrentFrame[matchingArray[match]][0]),int(beesCurrentFrame[matchingArray[match]][1])),(0,255,0),5)
+        #         elif beesCurrentFrame[match][1]>thresholdY and beesLastFrame[matchingArray[match]][1]<thresholdY:
+        #             beesOut+=1
+        # print("\nOut: ", beesOut)
+        # print("In: ", beesIn)
+        # return beesIn, beesOut
 
 
 
@@ -166,6 +218,7 @@ class Utilities:
             if stats[i, 4] > 1500:  # threshold to filter out small patches
                 tmp=np.array(realOriginal)
                 # Utilities.showCaughtPatch(tmp, labels, i)
+                # if True:
                 if Utilities.checkColors(i, realOriginal)==True:
                     #j += 1 #i is the original label, j is to not take into account the small ones. but for development i is better.
                     cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!

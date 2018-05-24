@@ -8,13 +8,14 @@ import os
 frameNumber = 0
 global realOriginal #is the image without ellipses/numbers
 # name of the video:
-videoName = 'GOPR1402.MP4'
+videoName = 'GOPR1404.MP4'
 # define path of the video
 currentPath = os.getcwd()
 videoPath = os.path.join('../../Media',videoName)
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2()
+# fgbg = cv2.createBackgroundSubtractorKNN()
 
 arraySearch = False
 ######################################################################################################
@@ -24,6 +25,9 @@ histoBlue_current=[0 for x in range(256)]
 histoGreen_current=[0 for x in range(256)]
 histoRed_current=[0 for x in range(256)]
 beesLastFrame =[]
+
+sumBeesIn = 0
+sumBeesOut= 0
 
 
 def createHistoArray(frameTolookAt, labelNumber):
@@ -44,6 +48,7 @@ while (1):
         break
     # original = Utilities.defineROI(100,1700,500,750,original)
     realOriginal=np.array(original)
+    # original=cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
     fgmask = fgbg.apply(original)
     fgmask = cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
@@ -56,7 +61,13 @@ while (1):
     if frameNumber!=1:
         labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         if frameNumber>=2:
-            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame)
+            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original)
+            sumBeesIn+=beesIn
+            sumBeesOut+=beesOut
+            cv2.putText(original, "In:" +str(beesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.putText(original, "Out:" +str(beesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 220), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 270), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         beesLastFrame = beesCurrentFrame
 
 
@@ -69,7 +80,7 @@ while (1):
         cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
         cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Bee recognition', 1200, 800)
-        cv2.line(original,(0,500),(1920,500),(255,0,0),2)
+        cv2.line(original,(0,550),(1920,550),(255,0,0),2)
         cv2.imshow('Bee recognition', original)
 
 
