@@ -24,7 +24,7 @@ def checkexit(bee, coorYCrossingline):
         return False
 
 
-videoName = 'GOPR1352120FPS.MP4'
+videoName = 'GOPR1402.MP4'
 currentPath = os.getcwd()
 videoPath = os.path.join('../../../Media',videoName)
 
@@ -52,7 +52,7 @@ while(1):
 
 
     ret, frame = cap.read()
-    print(frame.shape)
+    # print(frame.shape)
     cv2.line(frame, (0,coorYCrossingline), (1280,coorYCrossingline), (255, 0, 0), 2)
     fgmask = fgbg.apply(frame)
     ret, thresh = cv2.threshold(fgmask,127,255,0)
@@ -89,6 +89,8 @@ while(1):
                             cv2.putText(frame,str(newBee.id),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
 
                         else:
+                            if beenr ==4:
+                                print('Update bee 4')
                             currentBee = beeTable[beenr]
                             currentBee.speedX = currentBee.positionX-cx
                             currentBee.speedY = currentBee.positionY-cy
@@ -97,10 +99,10 @@ while(1):
                             currentBee.update = True
                             currentBee.newPosition(int(cx),int(cy))
                             beeTable[beenr]=currentBee
-                            currentBee.screen()
+                            # currentBee.screen()
                             ellipse = cv2.fitEllipse(cnt)
                             cv2.ellipse(frame, ellipse, (0,0,255),2)
-                            print(beenr)
+                            # print(beenr)
                             cv2.putText(frame,str(beenr),(int(cx),int(cy)), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)
 
 
@@ -115,11 +117,14 @@ while(1):
 
             BeenrInit=False
 
+
         for bee in beeTable:
-                if checkentrance == True:
-                    EntranceCounter = EntranceCounter + 1
-                if checkexit == True:
-                    ExitCounter = ExitCounter + 1
+            if bee.id ==4:
+                print('history',bee.historyPosition[len(bee.historyPosition)-1][0], 'current pos', bee.positionY)
+            if checkentrance == True:
+                EntranceCounter = EntranceCounter + 1
+            if checkexit == True:
+                ExitCounter = ExitCounter + 1
 
         cv2.putText(frame, "Entrances: {}".format(str(EntranceCounter)), (10, 50),
                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, (250, 0, 1), 2)
