@@ -15,7 +15,6 @@ videoPath = os.path.join('../../Media',videoName)
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2()
-# fgbg = cv2.createBackgroundSubtractorKNN()
 
 arraySearch = False
 ######################################################################################################
@@ -28,9 +27,6 @@ beesLastFrame =[]
 
 sumBeesIn = 0
 sumBeesOut= 0
-
-beesVelocity=[]
-
 
 def createHistoArray(frameTolookAt, labelNumber):
     global histoBlue_current, histoGreen_current, histoRed_current
@@ -48,14 +44,12 @@ while (1):
     if ret==False:
         print('File not found')
         break
-    # original = Utilities.defineROI(100,1700,500,750,original)
     realOriginal=np.array(original)
-    # original=cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
     fgmask = fgbg.apply(original)
     fgmask = cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
-    # kernel = np.ones((35, 35), np.uint8)
-    # fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+    kernel = np.ones((5, 5), np.uint8)
+    fgmask = cv2.erode(fgmask, kernel, iterations=1)
 
 
 
@@ -63,7 +57,7 @@ while (1):
     if frameNumber!=1:
         labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         if frameNumber>=2:
-            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, beesVelocity)
+            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original)
             sumBeesIn+=beesIn
             sumBeesOut+=beesOut
             cv2.putText(original, "In:" +str(beesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
@@ -71,7 +65,6 @@ while (1):
             cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 220), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 270), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-        beesVelocity = beesCurrentFrame[:]-beesLastFrame[:]
         beesLastFrame = beesCurrentFrame
 
 
@@ -93,9 +86,6 @@ while (1):
     if frameNumber == 1:
         out = cv2.VideoWriter('/home/philipp/Desktop/ellipses.avi', fourcc, 15, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
     out.write(original)
-    # print("\r frame" + str(frameNumber), end="")
-    # time.sleep(8)
-
 
 
 
