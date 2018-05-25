@@ -45,14 +45,18 @@ class Utilities:
                 #old frame: row-indices, new frame: col-indices
                 distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
 
+
         for beeNumber in range(len(beesLastFrame)):
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
 
 
 
-            if distSquare[row, col]>4000:
+            if distSquare[row, col]>30000:
                 break
 
+
+            cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
+            cv2.putText(original,str(int(distSquare[row, col])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 
             matchingArray[row]=col
@@ -60,7 +64,8 @@ class Utilities:
             distSquare[:,col]=1e10
 
 
-            cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
+
+
             thresholdY=570
 
             if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
@@ -184,7 +189,6 @@ class Utilities:
                 # if True:
                 if Utilities.checkColors(i, realOriginal)==True:
                     #j += 1 #i is the original label, j is to not take into account the small ones. but for development i is better.
-                    cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!
                     cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
                     beesCurrentFrame.append(centroids[i])
                 else:

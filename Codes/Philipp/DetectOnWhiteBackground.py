@@ -33,8 +33,8 @@ def createHistoArray(frameTolookAt, labelNumber):
     if frameTolookAt==frameNumber:
         cv2.destroyAllWindows()
         # Utilities.showCaughtPatch(realOriginal, labels, labelNumber)
-
         histoBlue_current,histoGreen_current, histoRed_current = Utilities.getHistogramForArraySearch(labelNumber,histoBlue_current,histoGreen_current, histoRed_current, realOriginal)
+
 
 
 while (1):
