@@ -14,9 +14,10 @@ currentPath = os.getcwd()
 videoPath = os.path.join('../../Media',videoName)
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
-fgbg = cv2.createBackgroundSubtractorMOG2()
+fgbg = cv2.createBackgroundSubtractorMOG2(1, 10)
 
 arraySearch = False
+squareEntrance =True
 ######################################################################################################
 
 
@@ -48,8 +49,14 @@ while (1):
     fgmask = fgbg.apply(original)
     fgmask = cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
-    kernel = np.ones((5, 5), np.uint8)
+    kernel = np.ones((10, 10), np.uint8)
+    fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+    kernel = np.ones((15, 15), np.uint8)
     fgmask = cv2.erode(fgmask, kernel, iterations=1)
+
+
+
+
 
 
 
@@ -79,7 +86,13 @@ while (1):
         cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Bee recognition', 1200, 800)
         cv2.line(original,(0,570),(1920,570),(255,0,0),2)
+        if squareEntrance ==True:
+            cv2.line(original,(0,1000),(1920,1000),(255,0,0),2)
+            cv2.line(original,(80,570),(80,1000),(255,0,0),2)
+            cv2.line(original,(1840,570),(1840,1000),(255,0,0),2)
+
         cv2.imshow('Bee recognition', original)
+
 
 
 

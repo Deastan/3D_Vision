@@ -21,7 +21,8 @@ redBee_static =\
 print(sum(blueShadow_static)+sum(greenShadow_static)+sum(redShadow_static)+sum(blueBee_static)+sum(greenBee_static)+sum(redBee_static))
 
 
-showShadows=False
+showShadows=True
+squareEntrance =True
 
 ######################################################################################################
 
@@ -47,16 +48,18 @@ class Utilities:
 
 
         for beeNumber in range(len(beesLastFrame)):
+            if distSquare.shape[0]==0 or distSquare.shape[1]==0:
+                break
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
 
 
 
-            if distSquare[row, col]>30000:
+            if distSquare[row, col]>25000:
                 break
 
 
             cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
-            cv2.putText(original,str(int(distSquare[row, col])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            # cv2.putText(original,str(int(distSquare[row, col])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 
             matchingArray[row]=col
@@ -74,6 +77,41 @@ class Utilities:
             elif beesCurrentFrame[col][1]<thresholdY and beesLastFrame[row][1]>thresholdY:
                 beesOut+=1
                 cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+
+            if squareEntrance==True:
+                thresholdY_2=1000
+                if beesCurrentFrame[col][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
+                    beesIn+=1
+                    cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                elif beesCurrentFrame[col][1]>thresholdY_2 and beesLastFrame[row][1]<thresholdY_2:
+                    beesOut+=1
+                    cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+
+
+
+
+
+
+                thresholdX = 80
+
+                if beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
+
+                    if beesCurrentFrame[col][0]>thresholdX and beesLastFrame[row][0]<thresholdX:
+                        beesIn+=1
+                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                    elif beesCurrentFrame[col][0]<thresholdX and beesLastFrame[row][0]>thresholdX:
+                        beesOut+=1
+                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+                    thresholdX_2 = 1840
+                    if beesCurrentFrame[col][0]<thresholdX_2 and beesLastFrame[row][0]>thresholdX_2:
+                        beesIn+=1
+                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                    elif beesCurrentFrame[col][0]>thresholdX_2 and beesLastFrame[row][0]<thresholdX_2:
+                        beesOut+=1
+                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+
+
+
 
         return beesIn, beesOut
 
@@ -188,13 +226,13 @@ class Utilities:
                 # Utilities.showCaughtPatch(tmp, labels, i)
                 # if True:
                 if Utilities.checkColors(i, realOriginal)==True:
-                    #j += 1 #i is the original label, j is to not take into account the small ones. but for development i is better.
-                    cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
+                    cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
+                    cv2.ellipse(fgmask, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
+
                     beesCurrentFrame.append(centroids[i])
                 else:
                     if showShadows==True:
-                        cv2.putText(original,str(i),(int(centroids[i,0]),int(centroids[i,1])), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),2,cv2.LINE_AA)###here i changed j to i in order to get the same number for the bee as in labels!!!
-                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, 255, 2)
+                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,0,255), 2)
 
         return labels, beesCurrentFrame
 
