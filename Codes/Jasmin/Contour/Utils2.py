@@ -4,10 +4,10 @@ import os
 from Bee import Bee
 import sys
 
-class Utils:
+class Utils2:
 
     @staticmethod #The method returns True if the color-histogram is closer to a bee than to a shadow, False otherwise.
-    def checkColors(frame, xCentr, yCentr, width, height, median):
+    def checkColors(frame, xCentr, yCentr, width, height):
         #*****************************************INITIALIZATION*******************************************
         blueShadow_static=[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.87814589e-05, 0.00000000e+00, 3.75629179e-05, 0.00000000e+00, 5.63443768e-05, 1.87814589e-05, 1.87814589e-05, 1.87814589e-05, 3.75629179e-05, 1.87814589e-05, 0.00000000e+00, 5.63443768e-05, 3.75629179e-05, 5.63443768e-05, 3.75629179e-05, 5.63443768e-05, 7.51258358e-05, 1.31470213e-04, 5.63443768e-05, 3.75629179e-05, 1.87814589e-05, 1.69033130e-04, 9.39072947e-05, 1.31470213e-04, 1.12688754e-04, 1.69033130e-04, 2.06596048e-04, 7.51258358e-05, 1.31470213e-04, 1.12688754e-04, 9.39072947e-05, 7.51258358e-05, 9.39072947e-05, 1.50251672e-04, 1.12688754e-04, 7.51258358e-05, 1.12688754e-04, 2.06596048e-04, 7.51258358e-05, 5.63443768e-05, 1.31470213e-04, 1.31470213e-04, 2.62940425e-04, 1.12688754e-04, 7.51258358e-05, 1.50251672e-04, 1.31470213e-04, 1.87814589e-04, 9.39072947e-05, 9.39072947e-05, 5.63443768e-05, 9.39072947e-05, 5.63443768e-05, 1.87814589e-05, 9.39072947e-05, 9.39072947e-05, 9.39072947e-05, 5.63443768e-05, 5.63443768e-05, 7.51258358e-05, 5.63443768e-05, 5.63443768e-05, 1.12688754e-04, 1.87814589e-04, 9.39072947e-05, 9.39072947e-05, 3.75629179e-05, 1.31470213e-04, 5.63443768e-05, 3.75629179e-05, 5.63443768e-05, 5.63443768e-05, 1.87814589e-05, 3.75629179e-05, 1.87814589e-05, 5.63443768e-05, 0.00000000e+00, 3.75629179e-05, 2.25377507e-04, 9.39072947e-05, 9.39072947e-05, 1.87814589e-05, 5.63443768e-05, 2.25377507e-04, 1.50251672e-04, 7.51258358e-05, 3.75629179e-05, 3.00503343e-04, 1.69033130e-04, 3.75629179e-05, 1.31470213e-04, 1.50251672e-04, 7.51258358e-05, 3.75629179e-05, 5.63443768e-05, 5.63443768e-05, 5.63443768e-05, 1.12688754e-04, 3.19284802e-04, 2.81721884e-04, 1.69033130e-04, 2.91657287e-04, 3.24274918e-03, 5.07144219e-03, 9.12813841e-03, 1.47930239e-02, 1.49769269e-02, 1.76297147e-02, 1.68944963e-02, 1.87849930e-02, 1.91295077e-02, 2.68923490e-02, 3.19649150e-02, 3.96338875e-02, 3.29647127e-02, 3.03698529e-02, 2.82396564e-02, 2.84971413e-02, 1.99613961e-02, 2.08202862e-02, 1.65958376e-02, 1.41599379e-02, 1.32966849e-02, 1.25697993e-02, 1.18354126e-02, 9.23941902e-03, 8.57758916e-03, 9.44287052e-03, 8.47693444e-03, 1.05152679e-02, 9.78407982e-03, 7.94416346e-03, 9.93113691e-03, 9.39771720e-03, 9.41547734e-03, 9.80971071e-03, 1.04960008e-02, 1.07680015e-02, 1.41137149e-02, 1.38497820e-02, 1.46198347e-02, 1.37980713e-02, 1.42780333e-02, 1.62356271e-02, 1.52869608e-02, 1.57757726e-02, 1.53830379e-02, 1.86419895e-02, 1.69246810e-02, 1.63776996e-02, 1.35864248e-02, 1.33817706e-02, 1.34196223e-02, 1.28120415e-02, 1.38641453e-02, 1.34524439e-02, 9.78722668e-03, 9.44196376e-03, 7.75420475e-03, 7.70666228e-03, 1.00428349e-02, 1.16390991e-02, 1.12365721e-02, 1.02989553e-02, 1.80290752e-02, 1.33958202e-02, 1.72473051e-02, 1.43594053e-02, 7.47998836e-03, 2.04717902e-03, 2.70453009e-03, 1.50251672e-04, 1.50251672e-04, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00]
         greenShadow_static=[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.87814589e-05, 3.75629179e-05, 0.00000000e+00, 1.87814589e-05, 1.87814589e-05, 0.00000000e+00, 3.75629179e-05, 1.87814589e-05, 1.87814589e-05, 1.87814589e-05, 0.00000000e+00, 1.87814589e-05, 1.87814589e-05, 0.00000000e+00, 1.12688754e-04, 5.63443768e-05, 3.75629179e-05, 3.75629179e-05, 5.63443768e-05, 3.75629179e-05, 1.12688754e-04, 1.31470213e-04, 7.51258358e-05, 1.87814589e-05, 7.51258358e-05, 1.12688754e-04, 1.31470213e-04, 3.75629179e-05, 1.87814589e-04, 2.62940425e-04, 1.12688754e-04, 7.51258358e-05, 1.69033130e-04, 1.50251672e-04, 9.39072947e-05, 1.31470213e-04, 1.69033130e-04, 9.39072947e-05, 5.63443768e-05, 1.12688754e-04, 3.00503343e-04, 2.06596048e-04, 9.39072947e-05, 1.12688754e-04, 1.69033130e-04, 1.31470213e-04, 1.50251672e-04, 5.63443768e-05, 3.00503343e-04, 1.12688754e-04, 1.31470213e-04, 1.50251672e-04, 3.75629179e-05, 9.39072947e-05, 1.31470213e-04, 1.31470213e-04, 9.39072947e-05, 1.69033130e-04, 9.39072947e-05, 1.50251672e-04, 1.87814589e-05, 9.39072947e-05, 1.12688754e-04, 1.12688754e-04, 1.12688754e-04, 1.87814589e-04, 2.25377507e-04, 1.31470213e-04, 9.39072947e-05, 1.69033130e-04, 9.39072947e-05, 9.39072947e-05, 7.51258358e-05, 3.75629179e-05, 5.63443768e-05, 2.81721884e-04, 1.50251672e-04, 2.62940425e-04, 9.76025554e-04, 3.58538397e-03, 4.91909040e-03, 1.35781052e-02, 2.25598296e-02, 1.72902602e-02, 1.42589969e-02, 1.72830549e-02, 1.79040041e-02, 1.53806898e-02, 1.38828483e-02, 1.84963926e-02, 3.03871209e-02, 3.07273184e-02, 2.86524208e-02, 2.50727921e-02, 2.40571376e-02, 2.38731278e-02, 2.29553225e-02, 1.84525770e-02, 1.63294168e-02, 1.63676749e-02, 1.13297130e-02, 1.26173964e-02, 1.13776801e-02, 1.13164993e-02, 8.16091968e-03, 9.16413644e-03, 8.63271490e-03, 7.81297702e-03, 8.40410614e-03, 7.34314861e-03, 8.26131302e-03, 6.62620814e-03, 8.17251523e-03, 7.50900478e-03, 8.37258154e-03, 8.97955613e-03, 8.71806036e-03, 8.76143718e-03, 1.24586242e-02, 1.13137464e-02, 1.17804497e-02, 1.14110048e-02, 1.14751994e-02, 1.12113719e-02, 1.31775446e-02, 1.31402239e-02, 1.39514413e-02, 1.43809759e-02, 1.72309887e-02, 1.74207044e-02, 1.83700453e-02, 1.89758261e-02, 1.70259593e-02, 1.57907801e-02, 1.36815812e-02, 1.43627441e-02, 1.19508840e-02, 1.14670756e-02, 1.08833785e-02, 7.23381194e-03, 7.93829808e-03, 1.08699335e-02, 1.42529256e-02, 1.65840550e-02, 1.83475899e-02, 1.66061411e-02, 1.70413433e-02, 1.94933672e-02, 1.29641744e-02, 6.01006686e-04, 5.63443768e-05, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00]
@@ -18,7 +18,7 @@ class Utils:
         #***************************************************************************************************
 
 
-        localBlue, localGreen, localRed = Utils.getHistogram(frame, xCentr, yCentr, width, height,median)
+        localBlue, localGreen, localRed = Utils2.getHistogram(frame, xCentr, yCentr, width, height)
 
         sumBee = np.dot(blueBee_static[0:140], localBlue[0:140])+np.dot(greenBee_static[0:140], localGreen[0:140])+np.dot(redBee_static[0:140], localRed[0:140])
         sumShadow = np.dot(blueShadow_static[0:140], localBlue[0:140]) +np.dot(greenShadow_static[0:140], localGreen[0:140])+np.dot(redShadow_static[0:140], localRed[0:140])
@@ -39,9 +39,8 @@ class Utils:
 
 
     @staticmethod
-    def getHistogram(frame, xCentr, yCentr, width, height,median):
+    def getHistogram(frame, xCentr, yCentr, width, height):
         pixelArray = []
-        frame = cv2.merge([frame[:,:,0]&median,frame[:,:,1]&median,frame[:,:,2]&median])
 
         for j in range(xCentr - width // 6, xCentr + width // 6): #The pixels in this box (a square in the middle of the bounding box (1/3 of with and height) are taken for the histogram
             for i in range(yCentr - height // 6, yCentr + height // 6):
@@ -49,9 +48,9 @@ class Utils:
 
         pixelArray=np.matrix(pixelArray)
 
-        histoBlue=Utils.histo(pixelArray[:, 0])
-        histoGreen=Utils.histo(pixelArray[:, 1])
-        hirstoRed=Utils.histo(pixelArray[:, 2])
+        histoBlue=Utils2.histo(pixelArray[:, 0])
+        histoGreen=Utils2.histo(pixelArray[:, 1])
+        hirstoRed=Utils2.histo(pixelArray[:, 2])
 
 
         return (histoBlue, histoGreen, hirstoRed)
@@ -96,6 +95,7 @@ class Utils:
     def updateBee(cx,cy,bee, beenr):
         bee.counter=0
         bee.id = beenr
+        print('beenr')
         bee.update = True
         bee.state = 2
         bee.speedX = bee.positionX-cx
@@ -113,6 +113,23 @@ class Utils:
         return frame
 
     @staticmethod
+    def calculateDistance(beeTable,newBeeTable):
+        compareBeesTable = 10000*np.ones((len(beeTable),len(newBeeTable)))
+        print('hello')
+        for beeIndex in range(len(beeTable)):
+            for newBeeIndex in range(len(newBeeTable)):
+                bee = beeTable[beeIndex]
+                newBee = newBeeTable[newBeeIndex]
+                if bee.state == 2:
+                    compareBeesTable[beeIndex,newBeeIndex] = pow((bee.positionX - bee.speedX)- bee.positionX,2)+pow((bee.positionY - bee.speedY)- bee.positionY,2)
+                if bee.state ==3:
+                    compareBeesTable[beeIndex,newBeeIndex] = pow((bee.positionX - bee.speedX*icounter)- bee.positionX,2)+pow((bee.positionY - bee.speedY*bee.counter)- bee.positionY,2)
+                else:
+                    compareBeesTable[beeIndex,newBeeIndex] = pow(bee.positionX-newBee.positionX,2)+pow(bee.positionY-newBee.positionY,2)
+        return compareBeesTable
+
+
+    @staticmethod
     def visible(bee, beeTable):
         visi = True
         x_bee, y_bee, w_bee, h_bee = cv2.boundingRect(bee.cnt)
@@ -126,8 +143,8 @@ class Utils:
             b_test = x_test+w_test/2
             c_test = y_test-h_test/2
             d_test = y_test+h_test/2
-            # if ((bee.id==17)&(bee_test.id ==19))|((bee.id==19)&(bee_test.id==17)):
-                # print('a_test',a_test,'b_test: ',b_test, 'c_test:', c_test,'d_test',d_test,'a_bee',a_bee,'b_bee',b_bee,'c_bee',c_bee,'d_bee',d_bee)
+            if ((bee.id==17)&(bee_test.id ==19))|((bee.id==19)&(bee_test.id==17)):
+                print('a_test',a_test,'b_test: ',b_test, 'c_test:', c_test,'d_test',d_test,'a_bee',a_bee,'b_bee',b_bee,'c_bee',c_bee,'d_bee',d_bee)
             # if ((a_test<a_bee)&(b_test>b_bee)&(c_test<c_bee)&(d_test>d_bee))|((a_test>a_bee)&(b_test<b_bee)&(c_test>c_bee)&(d_test<d_bee)):
             if ((((a_test<a_bee)+(b_test>b_bee)+(c_test<c_bee)+(d_test>d_bee))>2)|(((a_test>a_bee)+(b_test<b_bee)+(c_test>c_bee)+(d_test<d_bee))>2)):
                 visi=False
@@ -136,30 +153,30 @@ class Utils:
 
 
 
-    @staticmethod
-    def checkDist(cx,cy,counter, beeTable):
-        incr = True
-        beenr = 0
-        r =  []
-        for i in beeTable:
-            if i.state ==2:
-                dx = (cx-i.speedX) -i.positionX
-                dy = (cy-i.speedY) -i.positionY
-            elif (i.state==3):
-                dx = (cx-i.speedX*i.counter)-i.positionX
-                dy = (cy-i.speedY*i.counter)-i.positionY
-            # test if it could be the same be, because of its relative position towards other bees
-            else:
-                dx = cx-i.positionX
-                dy = cy-i.positionY
-            r.append(np.sqrt(pow(dx,2)+pow(dy,2)))
-
-        if beeTable:
-            rmin = np.amin(r)
-            if(rmin <150): # if it is without prediction of position use rmin < 150
-
-                bee = beeTable[np.argmin(r)]
-                if counter<5:
-                    beenr = np.argmin(r)
-                    incr = False
-        return (incr, beenr)
+    # @staticmethod
+    # def checkDist(cx,cy,counter, beeTable):
+    #     incr = True
+    #     beenr = 0
+    #     r =  []
+    #     for i in beeTable:
+    #         if i.state ==2:
+    #             dx = (cx-i.speedX) -i.positionX
+    #             dy = (cy-i.speedY) -i.positionY
+    #         elif (i.state==3):
+    #             dx = (cx-i.speedX*i.counter)-i.positionX
+    #             dy = (cy-i.speedY*i.counter)-i.positionY
+    #         # test if it could be the same be, because of its relative position towards other bees
+    #         else:
+    #             dx = cx-i.positionX
+    #             dy = cy-i.positionY
+    #         r.append(np.sqrt(pow(dx,2)+pow(dy,2)))
+    #
+    #     if beeTable:
+    #         rmin = np.amin(r)
+    #         if(rmin <150): # if it is without prediction of position use rmin < 150
+    #
+    #             bee = beeTable[np.argmin(r)]
+    #             if counter<5:
+    #                 beenr = np.argmin(r)
+    #                 incr = False
+    #     return (incr, beenr)
