@@ -31,7 +31,7 @@ squareEntrance =True
 class Utilities:
 
     @staticmethod
-    def counter(beesCurrentFrame, beesLastFrame, original):
+    def counter(beesCurrentFrame, beesLastFrame, original, lineHistory):
 
         beesIn = 0
         beesOut=0
@@ -58,7 +58,14 @@ class Utilities:
                 break
 
 
-            cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
+
+
+
+
+            # cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
+            # lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
+
+
             # cv2.putText(original,str(int(distSquare[row, col])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 
@@ -73,19 +80,19 @@ class Utilities:
 
             if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
                 beesIn+=1
-                cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
             elif beesCurrentFrame[col][1]<thresholdY and beesLastFrame[row][1]>thresholdY:
                 beesOut+=1
-                cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
 
             if squareEntrance==True:
                 thresholdY_2=1000
                 if beesCurrentFrame[col][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
                     beesIn+=1
-                    cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                    # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
                 elif beesCurrentFrame[col][1]>thresholdY_2 and beesLastFrame[row][1]<thresholdY_2:
                     beesOut+=1
-                    cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+                    # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
 
 
 
@@ -94,21 +101,66 @@ class Utilities:
 
                 thresholdX = 80
 
-                if beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
+                if beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY:
 
                     if beesCurrentFrame[col][0]>thresholdX and beesLastFrame[row][0]<thresholdX:
                         beesIn+=1
-                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
                     elif beesCurrentFrame[col][0]<thresholdX and beesLastFrame[row][0]>thresholdX:
                         beesOut+=1
-                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
                     thresholdX_2 = 1840
                     if beesCurrentFrame[col][0]<thresholdX_2 and beesLastFrame[row][0]>thresholdX_2:
                         beesIn+=1
-                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,0,255),-1)
+                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
                     elif beesCurrentFrame[col][0]>thresholdX_2 and beesLastFrame[row][0]<thresholdX_2:
                         beesOut+=1
-                        cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 20,(0,255,0),-1)
+                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
+
+            lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
+
+
+        for i in range(max(len(lineHistory)-100,0), len(lineHistory)):
+
+            cv2.line(original,(lineHistory[i][0][0],lineHistory[i][0][1]),(lineHistory[i][1][0],lineHistory[i][1][1]),(0,255,0),2)
+            thresholdY=570
+
+            if lineHistory[i][1][1]>thresholdY and lineHistory[i][0][1]<thresholdY:
+                # beesIn+=1
+                cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+            elif lineHistory[i][1][1]<thresholdY and lineHistory[i][0][1]>thresholdY:
+                # beesOut+=1
+                cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
+
+            if squareEntrance==True:
+                thresholdY_2=1000
+                if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY_2:
+                    # beesIn+=1
+                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+                elif lineHistory[i][1][1]>thresholdY_2 and lineHistory[i][0][1]<thresholdY_2:
+                    # beesOut+=1
+                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
+
+
+                thresholdX = 80
+
+                if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][1][1]>thresholdY and lineHistory[i][0][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY:
+
+                    if lineHistory[i][1][0]>thresholdX and lineHistory[i][0][0]<thresholdX:
+                        # beesIn+=1
+                        cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+                    elif lineHistory[i][1][0]<thresholdX and lineHistory[i][0][0]>thresholdX:
+                        # beesOut+=1
+                        cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
+                    thresholdX_2 = 1840
+                    if lineHistory[i][1][0]<thresholdX_2 and lineHistory[i][0][0]>thresholdX_2:
+                        # beesIn+=1
+                        cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+                    elif lineHistory[i][1][0]>thresholdX_2 and lineHistory[i][0][0]<thresholdX_2:
+                        # beesOut+=1
+                        cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
+
+
 
 
 
@@ -226,13 +278,13 @@ class Utilities:
                 # Utilities.showCaughtPatch(tmp, labels, i)
                 # if True:
                 if Utilities.checkColors(i, realOriginal)==True:
-                    cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
-                    cv2.ellipse(fgmask, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
+                    cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,255,0), 4)
+                    # cv2.ellipse(fgmask, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
 
                     beesCurrentFrame.append(centroids[i])
                 else:
                     if showShadows==True:
-                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,0,255), 2)
+                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 4, stats[i, 3] // 4), 0, 0, 360, (0,0,255), 1)
 
         return labels, beesCurrentFrame
 
