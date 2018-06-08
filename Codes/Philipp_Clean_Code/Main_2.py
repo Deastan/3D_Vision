@@ -1,17 +1,20 @@
 import numpy as np
 from Utilities import Utilities
 import cv2
-import time
 import os
 
 
+###################################################################################################¼###
+# Initializations:
+
 frameNumber = 0
 global realOriginal #is the image without ellipses/numbers
-# name of the video:
-videoName = 'GOPR1404.MP4'
-# define path of the video
-currentPath = os.getcwd()
-videoPath = os.path.join('../../Media',videoName)
+
+#define the video-path
+videoPath = '/home/philipp/Desktop/GOPR1402.MP4'
+#define the path for saving the output-video
+outputPath = '/home/philipp/Desktop/BeeCounting.avi'
+
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
 fgbg = cv2.createBackgroundSubtractorMOG2(1, 10)
@@ -19,13 +22,15 @@ fgbg = cv2.createBackgroundSubtractorMOG2(1, 10)
 arraySearch = False
 squareEntrance =True
 lineHistory =[]
-######################################################################################################
-
 
 histoBlue_current=[0 for x in range(256)]
 histoGreen_current=[0 for x in range(256)]
 histoRed_current=[0 for x in range(256)]
 beesLastFrame =[]
+######################################################################################################
+
+
+
 
 sumBeesIn = 0
 sumBeesOut= 0
