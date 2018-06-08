@@ -13,7 +13,7 @@ global realOriginal #is the image without ellipses/numbers
 #define the video-path
 videoPath = '/home/philipp/Desktop/GOPR1402.MP4'
 #define the path for saving the output-video
-outputPath = '/home/philipp/Desktop/BeeCounting.avi'
+outputPath = '/home/philipp/Desktop/BeeCounting_2.avi'
 
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
@@ -57,8 +57,9 @@ while (1):
 
 
 
-
-    if frameNumber!=1:
+    if frameNumber == 1:
+        out = cv2.VideoWriter(outputPath, fourcc, 4, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
+    else:
         labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         if frameNumber>=2:
             beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory)
@@ -68,6 +69,7 @@ while (1):
             cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
         beesLastFrame = beesCurrentFrame
+
 
 
 
@@ -83,12 +85,13 @@ while (1):
 
     cv2.imshow('Bee recognition', original)
 
-
-
-
-    if frameNumber == 1:
-        out = cv2.VideoWriter('/home/philipp/Desktop/ellipses.avi', fourcc, 4, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
     out.write(original)
+
+
+
+
+
+
 
 
     k = cv2.waitKey(1) & 0xff  # modify the frame-speed
