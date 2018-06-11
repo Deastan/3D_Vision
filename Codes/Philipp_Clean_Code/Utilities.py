@@ -28,36 +28,43 @@ class Utilities:
         #Initialize the counters of bees crossing the entrance lines:
         beesIn = 0
         beesOut=0
+        thresholdY=570
+        thresholdY_2=1000
+        thresholdX = 80
+
+
+
         #Array carrying for each bee of the last frame (index) the most probable matching bee in the current frame. Initialized by -1 to easily sort out missing matches.
         matchingArray = [-1 for x in range(len(beesLastFrame))]
 
-        #Creating a Matrix which for each couple (bee in current frame and bee in last frame stores the squared distance. Initialized by 1e10, in order to always be bigger than the real squared distances.
-        distSquare=1e10*np.ones((len(beesLastFrame), len(beesCurrentFrame)))
+        #Creating a Matrix which, for each couple (bee in current frame and bee in last frame stores the squared distance. Initialized by 25000, in order to always be bigger than the real squared distances.
+        distSquare=25000*np.ones((len(beesLastFrame), len(beesCurrentFrame)))
         for beeLast in range(len(beesLastFrame)):
             for beeCurrent in range(len(beesCurrentFrame)):
                 distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
 
-
+        #Finding the most probable matches by looking for the overall minimum distance in every iteration.
         for beeNumber in range(len(beesLastFrame)):
+            #Since the matrix is not generally square, one dimension might decrease to 0 before the loop was finished. In this case we leave the loop.
             if distSquare.shape[0]==0 or distSquare.shape[1]==0:
                 break
+            #Get inidices of the minimum value.
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
 
-
-
-            if distSquare[row, col]>25000:
+            #Leave the loop as soon as the next minimum value ist bigger than 25000, as this is unlikely to be a distance that a bee travelled during a single frame.
+            if distSquare[row, col]>=25000:
                 break
 
-
-
+            #Assign 25000 to the already considered bees from the old frame (row) and the new frame (col) in order not to match a bee twice.
             matchingArray[row]=col
-            distSquare[row,:]=1e10
-            distSquare[:,col]=1e10
+            distSquare[row,:]=25000
+            distSquare[:,col]=25000
 
 
 
 
-            thresholdY=570
+
+
 
             if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
                 beesIn+=1
@@ -66,21 +73,18 @@ class Utilities:
                 beesOut+=1
                 # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
 
-            if True:
-                thresholdY_2=1000
-                if beesCurrentFrame[col][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
-                    beesIn+=1
-                    # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
-                elif beesCurrentFrame[col][1]>thresholdY_2 and beesLastFrame[row][1]<thresholdY_2:
-                    beesOut+=1
-                    # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
+            if beesCurrentFrame[col][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
+                beesIn+=1
+                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
+            elif beesCurrentFrame[col][1]>thresholdY_2 and beesLastFrame[row][1]<thresholdY_2:
+                beesOut+=1
+                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
 
 
 
 
 
 
-                thresholdX = 80
 
                 if beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY:
 
@@ -104,7 +108,6 @@ class Utilities:
         for i in range(max(len(lineHistory)-100,0), len(lineHistory)):
 
             cv2.line(original,(lineHistory[i][0][0],lineHistory[i][0][1]),(lineHistory[i][1][0],lineHistory[i][1][1]),(0,255,0),2)
-            thresholdY=570
 
             if lineHistory[i][1][1]>thresholdY and lineHistory[i][0][1]<thresholdY:
                 # beesIn+=1
@@ -113,14 +116,12 @@ class Utilities:
                 # beesOut+=1
                 cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
 
-            if True:
-                thresholdY_2=1000
-                if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY_2:
-                    # beesIn+=1
-                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
-                elif lineHistory[i][1][1]>thresholdY_2 and lineHistory[i][0][1]<thresholdY_2:
-                    # beesOut+=1
-                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
+            if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY_2:
+                # beesIn+=1
+                cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+            elif lineHistory[i][1][1]>thresholdY_2 and lineHistory[i][0][1]<thresholdY_2:
+                # beesOut+=1
+                cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
 
 
                 thresholdX = 80
