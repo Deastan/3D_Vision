@@ -31,6 +31,8 @@ class Utilities:
         thresholdY=570
         thresholdY_2=1000
         thresholdX = 80
+        thresholdX_2 = 1840
+
 
 
 
@@ -45,9 +47,11 @@ class Utilities:
 
         #Finding the most probable matches by looking for the overall minimum distance in every iteration.
         for beeNumber in range(len(beesLastFrame)):
+
             #Since the matrix is not generally square, one dimension might decrease to 0 before the loop was finished. In this case we leave the loop.
             if distSquare.shape[0]==0 or distSquare.shape[1]==0:
                 break
+
             #Get inidices of the minimum value.
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
 
@@ -60,49 +64,20 @@ class Utilities:
             distSquare[row,:]=25000
             distSquare[:,col]=25000
 
-
-
-
-
-
-
-            if beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY:
-                beesIn+=1
-                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
-            elif beesCurrentFrame[col][1]<thresholdY and beesLastFrame[row][1]>thresholdY:
-                beesOut+=1
-                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
-
-            if beesCurrentFrame[col][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY_2:
-                beesIn+=1
-                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
-            elif beesCurrentFrame[col][1]>thresholdY_2 and beesLastFrame[row][1]<thresholdY_2:
-                beesOut+=1
-                # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
-
-
-
-
-
-
-
-                if beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][1]>thresholdY:
-
-                    if beesCurrentFrame[col][0]>thresholdX and beesLastFrame[row][0]<thresholdX:
-                        beesIn+=1
-                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
-                    elif beesCurrentFrame[col][0]<thresholdX and beesLastFrame[row][0]>thresholdX:
-                        beesOut+=1
-                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
-                    thresholdX_2 = 1840
-                    if beesCurrentFrame[col][0]<thresholdX_2 and beesLastFrame[row][0]>thresholdX_2:
-                        beesIn+=1
-                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,0,255),-1)
-                    elif beesCurrentFrame[col][0]>thresholdX_2 and beesLastFrame[row][0]<thresholdX_2:
-                        beesOut+=1
-                        # cv2.circle(original,(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])), 30,(0,255,0),-1)
-
+            #Add the two positions to an array of lines to draw the tracking of the bees
             lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
+
+
+
+            #Check whether it was inside the box
+            if beesLastFrame[row][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][0]>thresholdX and beesLastFrame[row][0]<thresholdX_2:
+                #If so check whether the current bee is NOT in the box
+                if not (beesCurrentFrame[col][1]>thresholdY and beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][0]>thresholdX and beesCurrentFrame[col][0]<thresholdX_2):
+                    beesOut+=1
+            #Else means, it was not in the box, in that cas check, whether it IS in the box in the current frame
+            else:
+                if beesCurrentFrame[col][1]>thresholdY and beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][0]>thresholdX and beesCurrentFrame[col][0]<thresholdX_2:
+                    beesIn+=1
 
 
         for i in range(max(len(lineHistory)-100,0), len(lineHistory)):
@@ -110,39 +85,33 @@ class Utilities:
             cv2.line(original,(lineHistory[i][0][0],lineHistory[i][0][1]),(lineHistory[i][1][0],lineHistory[i][1][1]),(0,255,0),2)
 
             if lineHistory[i][1][1]>thresholdY and lineHistory[i][0][1]<thresholdY:
-                # beesIn+=1
                 cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
             elif lineHistory[i][1][1]<thresholdY and lineHistory[i][0][1]>thresholdY:
-                # beesOut+=1
                 cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
 
             if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY_2:
-                # beesIn+=1
                 cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
             elif lineHistory[i][1][1]>thresholdY_2 and lineHistory[i][0][1]<thresholdY_2:
-                # beesOut+=1
                 cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
 
 
-                thresholdX = 80
 
                 if lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][1][1]>thresholdY and lineHistory[i][0][1]<thresholdY_2 and lineHistory[i][0][1]>thresholdY:
 
                     if lineHistory[i][1][0]>thresholdX and lineHistory[i][0][0]<thresholdX:
-                        # beesIn+=1
                         cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
                     elif lineHistory[i][1][0]<thresholdX and lineHistory[i][0][0]>thresholdX:
-                        # beesOut+=1
                         cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
                     thresholdX_2 = 1840
                     if lineHistory[i][1][0]<thresholdX_2 and lineHistory[i][0][0]>thresholdX_2:
-                        # beesIn+=1
                         cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
                     elif lineHistory[i][1][0]>thresholdX_2 and lineHistory[i][0][0]<thresholdX_2:
-                        # beesOut+=1
                         cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
 
         return beesIn, beesOut
+
+
+
 
 
 
