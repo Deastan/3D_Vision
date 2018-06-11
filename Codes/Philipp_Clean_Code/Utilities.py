@@ -218,28 +218,24 @@ class Utilities:
 
     @staticmethod
     def connectedComponents(fgmask, original, realOriginal):
-        connectivity = 8
+
         global labels
         global stats
 
 
-        output = cv2.connectedComponentsWithStats(fgmask, connectivity, cv2.CV_32S)
+        output = cv2.connectedComponentsWithStats(fgmask, 4, cv2.CV_32S)
 
         num_labels = output[0]
         labels = output[1]
         stats = output[2]
         centroids = output[3]
 
-        # j = 0
         beesCurrentFrame=[]
         for i in range(1, num_labels):  # don't do 0, cause it's just the background
             if stats[i, 4] > 1500:  # threshold to filter out small patches
                 tmp=np.array(realOriginal)
-                # Utilities.showCaughtPatch(tmp, labels, i)
-                # if True:
                 if True: # Utilities.checkColors(i, realOriginal)==True:
                     cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,255,0), 4)
-                    # cv2.ellipse(fgmask, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (255,0,0), 2)
 
                     beesCurrentFrame.append(centroids[i])
                 else:

@@ -42,22 +42,25 @@ while (1):
         break
 
 
+    #Creating a copy of the image, which will never by changed (no ellipses added etc.)
+    realOriginal=np.array(original)
 
     #Background-Subtraction and filtering on the image
-    realOriginal=np.array(original)
     fgmask = fgbg.apply(original)
     fgmask = cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
-    # kernel = np.ones((10, 10), np.uint8)
-    # fgmask = cv2.dilate(fgmask, kernel, iterations=1)
-    # kernel = np.ones((15, 15), np.uint8)
-    # fgmask = cv2.erode(fgmask, kernel, iterations=1)
+    kernel = np.ones((10, 10), np.uint8)
+    fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+    kernel = np.ones((15, 15), np.uint8)
+    fgmask = cv2.erode(fgmask, kernel, iterations=1)
 
 
 
-
+    #For the first iteration, create the VideoWriter for the output
     if frameNumber == 1:
-        out = cv2.VideoWriter(outputPath, fourcc, 4, (original.shape[1], original.shape[0]))  # define: format, fps, and frame-size (pixels)
+        out = cv2.VideoWriter(outputPath, fourcc, 4, (original.shape[1], original.shape[0]))
+
+    #Starting from the second frame (because there is no BG-subtraction in the first one), use connected-components algorithm to find individual bees.
     else:
         labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         if frameNumber>=2:
