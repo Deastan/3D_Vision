@@ -4,19 +4,20 @@ import cv2
 import os
 
 
-###################################################################################################¼###
+######################################################################################################
 # Initializations:
-
 frameNumber = 0
-global realOriginal #is the image without ellipses/numbers
+#Image without ellipses/numbers
+global realOriginal
 
-#define the video-path
+#Define the input video-path
 videoPath = '/home/philipp/Desktop/GOPR1402.MP4'
-#define the path for saving the output-video
+#Define the path for saving the output-video
 outputPath = '/home/philipp/Desktop/BeeCounting_2.avi'
 
+#Define the codec and create VideoWriter object (fourcc)
 cap = cv2.VideoCapture(videoPath)
-fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Define the codec and create VideoWriter object (fourcc)
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 fgbg = cv2.createBackgroundSubtractorMOG2(1, 10)
 
 lineHistory =[]
@@ -29,8 +30,6 @@ beesLastFrame =[]
 sumBeesIn = 0
 sumBeesOut= 0
 ######################################################################################################
-
-
 
 
 
@@ -72,30 +71,22 @@ while (1):
 
 
 
-
-
-    # everything concerning showing the window
+    #Adding frame number and entrance-lines to the image.
     cv2.putText(original, "frame:" +str(frameNumber),(50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
     cv2.namedWindow('Bee recognition', cv2.WINDOW_NORMAL)
     cv2.resizeWindow('Bee recognition', 1200, 800)
-    cv2.line(original,(80,570),(1840,570),(255,0,0),5)
-    cv2.line(original,(80,1000),(1840,1000),(255,0,0),5)
-    cv2.line(original,(80,570),(80,1000),(255,0,0),5)
-    cv2.line(original,(1840,570),(1840,1000),(255,0,0),5)
+    cv2.rectangle(original, (80,570), (1840,1000), (255,0,0), thickness=2, lineType=8, shift=0)
 
+    #Showing and writing the final image
     cv2.imshow('Bee recognition', original)
-
     out.write(original)
 
 
 
-
-
-
-
-
-    k = cv2.waitKey(1) & 0xff  # modify the frame-speed
+    #Leave the loop and destroy the window by pressing ESC
+    k = cv2.waitKey(1) & 0xff
     if k == 27:
         break
+
 cap.release()
 cv2.destroyAllWindows()
