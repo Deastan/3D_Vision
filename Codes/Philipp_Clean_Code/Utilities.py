@@ -39,7 +39,7 @@ class Utilities:
         #Array carrying for each bee of the last frame (index) the most probable matching bee in the current frame. Initialized by -1 to easily sort out missing matches.
         matchingArray = [-1 for x in range(len(beesLastFrame))]
 
-        #Creating a Matrix which, for each couple (bee in current frame and bee in last frame stores the squared distance. Initialized by 25000, in order to always be bigger than the real squared distances.
+        #Creating a Matrix which, for each couple (bee in current frame and bee in last frame) stores the squared distance. Initialized by 25000, in order to always be bigger than the real squared distances.
         distSquare=25000*np.ones((len(beesLastFrame), len(beesCurrentFrame)))
         for beeLast in range(len(beesLastFrame)):
             for beeCurrent in range(len(beesCurrentFrame)):
@@ -52,7 +52,7 @@ class Utilities:
             if distSquare.shape[0]==0 or distSquare.shape[1]==0:
                 break
 
-            #Get inidices of the minimum value.
+            #Get inidices of the minimum value
             row, col = np.unravel_index(distSquare.argmin(), distSquare.shape)
 
             #Leave the loop as soon as the next minimum value ist bigger than 25000, as this is unlikely to be a distance that a bee travelled during a single frame.
@@ -67,17 +67,17 @@ class Utilities:
             #Add the two positions to an array of lines to draw the tracking of the bees
             lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
 
-            #Check whether it was inside the box
+            #Check whether the bee was inside the box in the last frame
             if beesLastFrame[row][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][0]>thresholdX and beesLastFrame[row][0]<thresholdX_2:
-                #If so check whether the current bee is NOT in the box anymore
+                #If so, check whether in the current frame, the bee is NOT in the box anymore. In that case increment the counter.
                 if not (beesCurrentFrame[col][1]>thresholdY and beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][0]>thresholdX and beesCurrentFrame[col][0]<thresholdX_2):
                     beesOut+=1
-            #Else means, it was not in the box, in that case check, whether it IS in the box in the current frame
+            #Else: the bee was NOT inside the box in the last frame, in that case check, whether it IS in the box in the current frame
             else:
                 if beesCurrentFrame[col][1]>thresholdY and beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][0]>thresholdX and beesCurrentFrame[col][0]<thresholdX_2:
                     beesIn+=1
 
-        #Draw the last 80 tracking lines. Where they cross the
+        #Draw the last 80 tracking lines. Where they cross a line of the entrance box, draw a red/blue circles with +1/-1
         for i in range(max(len(lineHistory)-80,0), len(lineHistory)):
             cv2.line(original,(lineHistory[i][0][0],lineHistory[i][0][1]),(lineHistory[i][1][0],lineHistory[i][1][1]),(0,255,0),2)
 
@@ -94,6 +94,7 @@ class Utilities:
         beesLastFrame=beesCurrentFrame
 
         return beesIn, beesOut
+
 
 
 
@@ -117,6 +118,7 @@ class Utilities:
 
 
 
+
     @staticmethod
     def checkColors(labelNumber, realOriginal):
 
@@ -132,6 +134,7 @@ class Utilities:
             return True
         else:
             return False
+
 
 
 
