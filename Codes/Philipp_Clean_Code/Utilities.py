@@ -168,26 +168,22 @@ class Utilities:
 
 
 
-
     @staticmethod
     def getHistogram(labelNumber, realOriginal):
-        pixelArray = []
+        #Create the histogram arrrays, initialized with 0.
+        histoBlue = [0 for x in range(255)]
+        histoGreen = [0 for x in range(255)]
+        hirstoRed = [0 for x in range(255)]
+
 
         #Get the pixels from the considered label by searching a rectangle defined by the leftmost, topmost, rightmost and downmost pixels
+        #Whenever it corresponds to the label, the color histograms are incremented at the corresponding values.
         for j in range(stats[labelNumber,0],stats[labelNumber,0]+stats[labelNumber,2]):
             for i in range(stats[labelNumber,1], stats[labelNumber,1]+stats[labelNumber,3]):
                 if labels[i,j]==labelNumber:
-                    pixelArray.append(realOriginal[i,j])
-        pixelArray=np.matrix(pixelArray)
-
-
-        pixelBlue = pixelArray[:, 0]
-        pixelGreen = pixelArray[:, 1]
-        pixelRed = pixelArray[:, 2]
-
-        histoBlue=Utilities.histo(pixelBlue)
-        histoGreen=Utilities.histo(pixelGreen)
-        hirstoRed=Utilities.histo(pixelRed)
+                    histoBlue[realOriginal[i,j][0]]+=1
+                    histoGreen[realOriginal[i,j][1]]+=1
+                    hirstoRed[realOriginal[i,j][2]]+=1
 
         return (histoBlue, histoGreen, hirstoRed)
 
@@ -197,11 +193,10 @@ class Utilities:
     @staticmethod
     def checkColors(labelNumber, realOriginal):
 
-        #Get the color histogram of the patch
+        #Get the color histogram of the considered label's patch
         localBlue, localGreen, localRed = Utilities.getHistogram(labelNumber, realOriginal)
 
         #Get the sum of scalar products of each BGR color of the patch's histogram and the average bee or shadow histogram
-
         sumBee = np.dot(blueBee_static[0:140], localBlue[0:140]) + np.dot(greenBee_static[0:140], localGreen[0:140]) + np.dot(redBee_static[0:140], localRed[0:140])
         sumShadow = np.dot(blueShadow_static[0:140], localBlue[0:140]) + np.dot(greenShadow_static[0:140], localGreen[0:140]) + np.dot(redShadow_static[0:140], localRed[0:140])
 
