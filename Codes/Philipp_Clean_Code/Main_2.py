@@ -1,34 +1,29 @@
 import numpy as np
 from Utilities import Utilities
 import cv2
-import os
-
 
 ######################################################################################################
-# Initializations:
-frameNumber = 0
-#Image without ellipses/numbers
-global realOriginal
+
 
 #Define the input video-path
 videoPath = '/home/philipp/Desktop/GOPR1402.MP4'
 #Define the path for saving the output-video
 outputPath = '/home/philipp/Desktop/BeeCounting_2.avi'
 
-#Define the codec and create VideoWriter object (fourcc)
+#Create objects for videocapture, videowriter, and backgroundsubtractor
 cap = cv2.VideoCapture(videoPath)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 fgbg = cv2.createBackgroundSubtractorMOG2(1, 10)
 
-lineHistory =[]
 
-histoBlue_current=[0 for x in range(256)]
-histoGreen_current=[0 for x in range(256)]
-histoRed_current=[0 for x in range(256)]
-beesLastFrame =[]
-
+# Initializations:
+frameNumber = 0
 sumBeesIn = 0
 sumBeesOut= 0
+
+beesLastFrame =[]
+
+
 ######################################################################################################
 
 
@@ -65,7 +60,7 @@ while (1):
         #Use connected-components to get a list of the individual bees.
         beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         #Use the counting function to get the bee flow of this frame
-        beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory)
+        beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original)
         sumBeesIn+=beesIn
         sumBeesOut+=beesOut
         cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
