@@ -173,12 +173,11 @@ class Utilities:
     def getHistogram(labelNumber, realOriginal):
         pixelArray = []
 
-        #get the pixels from the considered patches
+        #Get the pixels from the considered label by searching a rectangle defined by the leftmost, topmost, rightmost and downmost pixels
         for j in range(stats[labelNumber,0],stats[labelNumber,0]+stats[labelNumber,2]):
             for i in range(stats[labelNumber,1], stats[labelNumber,1]+stats[labelNumber,3]):
                 if labels[i,j]==labelNumber:
                     pixelArray.append(realOriginal[i,j])
-                    notEmpty = True
         pixelArray=np.matrix(pixelArray)
 
 
@@ -190,11 +189,6 @@ class Utilities:
         histoGreen=Utilities.histo(pixelGreen)
         hirstoRed=Utilities.histo(pixelRed)
 
-            # blueArray += plt.hist(shadowBlue,range=(0,256), density=True, bins=255, stacked=True)[0] #density and stacked together make it a normalized histogram (to 1)
-            # greenArray+= plt.hist(shadowGreen,range=(0,256), density=True, bins=255, stacked=True)[0]
-            # redArray +=  plt.hist(shadowRed,range=(0,256), density=True, bins=255, stacked=True)[0]
-            # plt.savefig('/home/philipp/Desktop/Histograms_shadows/shadwo_frame_'+str(frame)+'_label'+str(label)+'_blue')
-            # plt.show()
         return (histoBlue, histoGreen, hirstoRed)
 
 
@@ -203,10 +197,13 @@ class Utilities:
     @staticmethod
     def checkColors(labelNumber, realOriginal):
 
+        #Get the color histogram of the patch
         localBlue, localGreen, localRed = Utilities.getHistogram(labelNumber, realOriginal)
 
-        sumBee = np.dot(blueBee_static[0:140], localBlue[0:140])+np.dot(greenBee_static[0:140], localGreen[0:140])+np.dot(redBee_static[0:140], localRed[0:140])
-        sumShadow = np.dot(blueShadow_static[0:140], localBlue[0:140]) +np.dot(greenShadow_static[0:140], localGreen[0:140])+np.dot(redShadow_static[0:140], localRed[0:140])
+        #Get the sum of scalar products of each BGR color of the patch's histogram and the average bee or shadow histogram
+
+        sumBee = np.dot(blueBee_static[0:140], localBlue[0:140]) + np.dot(greenBee_static[0:140], localGreen[0:140]) + np.dot(redBee_static[0:140], localRed[0:140])
+        sumShadow = np.dot(blueShadow_static[0:140], localBlue[0:140]) + np.dot(greenShadow_static[0:140], localGreen[0:140]) + np.dot(redShadow_static[0:140], localRed[0:140])
 
         if sumBee>sumShadow:
             return True
@@ -222,24 +219,36 @@ class Utilities:
         global labels
         global stats
 
-
+        #Applying connected components on the binary image
         output = cv2.connectedComponentsWithStats(fgmask, 4, cv2.CV_32S)
-
-        num_labels = output[0]
-        labels = output[1]
+        #Extracting the statistic numbers from the output
+        num_labels = output[0] #how many different labels in the image
+        labels = output[1] #TODO: writie down their meanings.
         stats = output[2]
         centroids = output[3]
 
-        beesCurrentFrame=[]
-        for i in range(1, num_labels):  # don't do 0, cause it's just the background
-            if stats[i, 4] > 1500:  # threshold to filter out small patches
-                tmp=np.array(realOriginal)
-                if True: # Utilities.checkColors(i, realOriginal)==True:
-                    cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,255,0), 4)
 
-                    beesCurrentFrame.append(centroids[i])
+        #Creating an empty array for saving all the bee positions of this frame
+        beesCurrentFrame=[]
+
+        #Starting from 1 (because 0 is the overall background) up to the number of labels present in the image
+        for i in range(1, num_labels):
+            #Threshold in size, if the patch is smaller, it is considered to be no bee.
+            if stats[i, 4] > 1500:
+
+
+                #Checking whether (in the white-background area), according to color histograms, it is a bee or a shadow. If it is a bee, an ellipse is drawn around it and it is appended to the list of bees of this frame.
+                if centroids[i,1]>400 and centroids[i,1]<860:
+                    #This function returns true if it is a bee
+                    if Utilities.checkColors(i, realOriginal)==True:
+                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,255,0), 4)
+                        beesCurrentFrame.append(centroids[i])
+
+                #If it is not in the white-background-area it is directly labeled as a bee. An ellipse is drawn around it appended to the list of bees of this frame.
                 else:
-                    if showShadows==True:
-                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 4, stats[i, 3] // 4), 0, 0, 360, (0,0,255), 1)
+                        cv2.ellipse(original, (int(centroids[i, 0]), int(centroids[i, 1])), (stats[i, 2] // 3, stats[i, 3] // 3), 0, 0, 360, (0,255,0), 4)
+                        beesCurrentFrame.append(centroids[i])
+
+
 
         return labels, beesCurrentFrame
