@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 ######################################################################################################
 # Initializations:
@@ -24,7 +23,7 @@ redBee_static =\
 class Utilities:
 
     @staticmethod
-    def counter(beesCurrentFrame, beesLastFrame, original, lineHistory, frameNumber):
+    def counter(beesCurrentFrame, beesLastFrame, original, lineHistory):
         #Initialize the counters of bees crossing the entrance lines:
         beesIn = 0
         beesOut=0
@@ -32,8 +31,6 @@ class Utilities:
         thresholdY_2=1000
         thresholdX = 80
         thresholdX_2 = 1840
-
-
 
 
         #Array carrying for each bee of the last frame (index) the most probable matching bee in the current frame. Initialized by -1 to easily sort out missing matches.
@@ -67,8 +64,6 @@ class Utilities:
             #Add the two positions to an array of lines to draw the tracking of the bees
             lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
 
-
-
             #Check whether it was inside the box
             if beesLastFrame[row][1]>thresholdY and beesLastFrame[row][1]<thresholdY_2 and beesLastFrame[row][0]>thresholdX and beesLastFrame[row][0]<thresholdX_2:
                 #If so check whether the current bee is NOT in the box anymore
@@ -79,34 +74,21 @@ class Utilities:
                 if beesCurrentFrame[col][1]>thresholdY and beesCurrentFrame[col][1]<thresholdY_2 and beesCurrentFrame[col][0]>thresholdX and beesCurrentFrame[col][0]<thresholdX_2:
                     beesIn+=1
 
-
-
-        for i in range(max(len(lineHistory)-100,0), len(lineHistory)):
+        #Draw the last 80 tracking lines. Where they cross the
+        for i in range(max(len(lineHistory)-80,0), len(lineHistory)):
             cv2.line(original,(lineHistory[i][0][0],lineHistory[i][0][1]),(lineHistory[i][1][0],lineHistory[i][1][1]),(0,255,0),2)
 
             if lineHistory[i][0][1]>thresholdY and lineHistory[i][0][1]<thresholdY_2 and lineHistory[i][0][0]>thresholdX and lineHistory[i][0][0]<thresholdX_2:
                 if not (lineHistory[i][1][1]>thresholdY and lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][1][0]>thresholdX and lineHistory[i][1][0]<thresholdX_2):
-                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,0,255),-1)
+                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 35,(0,0,255),4)
+                    cv2.putText(original, "-1",(int(lineHistory[i][1][0])-20,int(lineHistory[i][1][1])+8), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 4, cv2.LINE_AA)
+
             else:
                 if lineHistory[i][1][1]>thresholdY and lineHistory[i][1][1]<thresholdY_2 and lineHistory[i][1][0]>thresholdX and lineHistory[i][1][0]<thresholdX_2:
-                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 20,(0,255,0),-1)
-
+                    cv2.circle(original,(int(lineHistory[i][1][0]),int(lineHistory[i][1][1])), 35,(255,0,0),4)
+                    cv2.putText(original, "+1",(int(lineHistory[i][1][0])-20,int(lineHistory[i][1][1])+8), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 4, cv2.LINE_AA)
 
         return beesIn, beesOut
-
-
-
-
-
-
-
-
-    @staticmethod
-    def histo(pixelArray):
-        histogram=[0 for x in range(256)]
-        for i in range(pixelArray.shape[0]):
-            histogram[int(pixelArray[i])]+=1
-        return histogram
 
 
 
@@ -116,7 +98,6 @@ class Utilities:
         histoBlue = [0 for x in range(255)]
         histoGreen = [0 for x in range(255)]
         hirstoRed = [0 for x in range(255)]
-
 
         #Get the pixels from the considered label by searching a rectangle defined by the leftmost, topmost, rightmost and downmost pixels
         #Whenever it corresponds to the label, the color histograms are incremented at the corresponding values.
@@ -128,7 +109,6 @@ class Utilities:
                     hirstoRed[realOriginal[i,j][2]]+=1
 
         return (histoBlue, histoGreen, hirstoRed)
-
 
 
 
@@ -146,7 +126,6 @@ class Utilities:
             return True
         else:
             return False
-
 
 
 

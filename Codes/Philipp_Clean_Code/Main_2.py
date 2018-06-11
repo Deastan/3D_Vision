@@ -65,12 +65,13 @@ while (1):
         #Use connected-components to get a list of the individual bees.
         beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
         #Use the counting function to get the bee flow of this frame
-        beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory, frameNumber)
+        beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory)
         sumBeesIn+=beesIn
         sumBeesOut+=beesOut
         cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
+        #Update beesLastFrame for the next iteration
         beesLastFrame = beesCurrentFrame
 
 
