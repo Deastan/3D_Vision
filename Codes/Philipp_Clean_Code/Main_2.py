@@ -60,15 +60,16 @@ while (1):
     if frameNumber == 1:
         out = cv2.VideoWriter(outputPath, fourcc, 4, (original.shape[1], original.shape[0]))
 
-    #Starting from the second frame (because there is no BG-subtraction in the first one), use connected-components algorithm to find individual bees.
+    #Starting from the second frame (because there is no BG-subtraction in the first one)
     else:
-        labels, beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
-        if frameNumber>=2:
-            beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory)
-            sumBeesIn+=beesIn
-            sumBeesOut+=beesOut
-            cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
-            cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        #Use connected-components to get a list of the individual bees.
+        beesCurrentFrame=Utilities.connectedComponents(fgmask, original, realOriginal)
+        #Use the counting function to get the bee flow of this frame
+        beesIn, beesOut = Utilities.counter(beesCurrentFrame, beesLastFrame, original, lineHistory)
+        sumBeesIn+=beesIn
+        sumBeesOut+=beesOut
+        cv2.putText(original, "In_total:" +str(sumBeesIn),(50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        cv2.putText(original, "Out_total:" +str(sumBeesOut),(50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
         beesLastFrame = beesCurrentFrame
 

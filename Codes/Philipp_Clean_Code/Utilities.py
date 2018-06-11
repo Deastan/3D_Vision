@@ -25,18 +25,16 @@ class Utilities:
 
     @staticmethod
     def counter(beesCurrentFrame, beesLastFrame, original, lineHistory):
-
+        #Initialize the counters of bees crossing the entrance lines:
         beesIn = 0
         beesOut=0
-
-
+        #Array carrying for each bee of the last frame (index) the most probable matching bee in the current frame. Initialized by -1 to easily sort out missing matches.
         matchingArray = [-1 for x in range(len(beesLastFrame))]
 
-
+        #Creating a Matrix which for each couple (bee in current frame and bee in last frame stores the squared distance. Initialized by 1e10, in order to always be bigger than the real squared distances.
         distSquare=1e10*np.ones((len(beesLastFrame), len(beesCurrentFrame)))
         for beeLast in range(len(beesLastFrame)):
             for beeCurrent in range(len(beesCurrentFrame)):
-                #old frame: row-indices, new frame: col-indices
                 distSquare[beeLast, beeCurrent] = (beesCurrentFrame[beeCurrent][0]-beesLastFrame[beeLast][0])**2 + (beesCurrentFrame[beeCurrent][1]-beesLastFrame[beeLast][1])**2
 
 
@@ -50,16 +48,6 @@ class Utilities:
             if distSquare[row, col]>25000:
                 break
 
-
-
-
-
-
-            # cv2.line(original,(int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),(0,0,255),2)
-            # lineHistory.append(((int(beesLastFrame[row][0]),int(beesLastFrame[row][1])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1]))))
-
-
-            # cv2.putText(original,str(int(distSquare[row, col])),(int(beesCurrentFrame[col][0]),int(beesCurrentFrame[col][1])),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 
             matchingArray[row]=col
@@ -246,4 +234,4 @@ class Utilities:
 
 
 
-        return labels, beesCurrentFrame
+        return beesCurrentFrame
