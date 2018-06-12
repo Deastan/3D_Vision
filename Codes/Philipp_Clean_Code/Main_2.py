@@ -34,12 +34,13 @@ while (1):
 
     #Background-Subtraction and filtering of the binary image to reduce noise, improve performance and enhance the result
     fgmask = fgbg.apply(original)
-    fgmask = cv2.medianBlur(fgmask, 9)
     ret, fgmask = cv2.threshold(fgmask, 120, 255, cv2.THRESH_BINARY)
-    kernel = np.ones((10, 10), np.uint8)
-    fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+    fgmask = cv2.medianBlur(fgmask, 9)
     kernel = np.ones((15, 15), np.uint8)
     fgmask = cv2.erode(fgmask, kernel, iterations=1)
+    kernel = np.ones((10, 10), np.uint8)
+    fgmask = cv2.dilate(fgmask, kernel, iterations=1)
+
 
 
 
